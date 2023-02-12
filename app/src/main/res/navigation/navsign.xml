@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navsign"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.quizproject.SignPages.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_createFragment"
+            app:destination="@id/createFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgetPassFragment"
+            app:destination="@id/forgetPassFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createFragment"
+        android:name="com.example.quizproject.SignPages.CreateFragment"
+        android:label="fragment_create"
+        tools:layout="@layout/fragment_create" >
+        <action
+            android:id="@+id/action_createFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.example.quizproject.SignPages.ChangePasswordFragment"
+        android:label="fragment_change_password"
+        tools:layout="@layout/fragment_change_password" />
+    <fragment
+        android:id="@+id/forgetPassFragment"
+        android:name="com.example.quizproject.SignPages.ForgetPassFragment"
+        android:label="fragment_forget_pass"
+        tools:layout="@layout/fragment_forget_pass" />
+</navigation>
