@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="32dp"
+    android:layout_weight="1"
+    tools:context=".SignPages.CreateFragment">
+
+    <TextView
+        android:gravity="center"
+        android:layout_marginBottom="32dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Create account"
+        android:textColor="@color/textcolordefult"
+        android:textSize="24dp"/>
+
+    <EditText
+        android:id="@+id/edt_txt_username_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        android:hint="Enter Your Username"
+        android:background="@drawable/background_edt_txt"/>
+
+    <EditText
+        android:id="@+id/edt_txt_email_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        android:hint="Enter Your Email"
+        android:background="@drawable/background_edt_txt"/>
+
+    <EditText
+        android:id="@+id/edt_txt_phone_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:inputType="textPersonName"
+        android:hint="Enter Your Phone"
+        android:background="@drawable/background_edt_txt"/>
+
+    <EditText
+        android:id="@+id/edt_txt_password_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:ems="10"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:inputType="textPassword"
+        android:hint="Enter Your Password"
+        android:background="@drawable/background_edt_txt"/>
+
+    <Button
+        android:id="@+id/btn_create_account_create"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="sign up"
+        android:textColor="@color/textcolordefult"
+        android:background="@drawable/background_btn"
+        android:layout_marginBottom="32dp"
+
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+    <ImageButton
+        android:id="@+id/img_btn_google_create"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="24dp"
+        android:src="@drawable/google"
+        android:background="@drawable/background_img_btn"
+ />
+
+
+    <ImageButton
+        android:id="@+id/img_btn_face_create"
+        android:layout_width="80dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="24dp"
+        android:src="@drawable/facebook"
+        android:background="@drawable/background_img_btn"
+
+         />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="I have alrady account"
+            android:textColor="@color/smalltext"
+
+            />
+
+        <TextView
+            android:id="@+id/txt_login_create"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textColor="#E86969"
+            />
+    </LinearLayout>
+
+</LinearLayout>
