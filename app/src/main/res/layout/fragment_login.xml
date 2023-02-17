@@ -7,6 +7,34 @@
     tools:context=".SignPages.LoginFragment">
 
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="86dp"
+        android:text="Email"
+        android:textSize="16sp"
+        android:textColor="@color/textcolordefult"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edt_txt_new_pass_change"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:background="@drawable/background_edt_txt"
+        android:ems="10"
+        android:hint="Enter Your Email"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
     <TextView
@@ -39,34 +67,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="86dp"
-        android:text="Email"
-        android:textSize="16sp"
-        android:textColor="@color/textcolordefult"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/edt_txt_login"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/background_edt_txt"
-        android:ems="10"
-        android:hint="Enter Your Email"
-        android:inputType="textPersonName"
-        android:padding="10dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <CheckBox
         android:id="@+id/check_remember_email"
@@ -74,9 +74,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:text="Remember me"
         android:background="@drawable/background_cheack_box"
-        android:textColor="@color/textcolordefult"
+        android:text="Remember me"
+        android:textColor="@color/smalltext"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2" />
@@ -132,10 +132,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="16dp"
             android:text="  Or sign in with  "
-            android:textColor="@color/textcolordefult"
-            />
+            android:textColor="@color/smalltext"
+            android:textSize="16dp" />
 
 
         <View
@@ -185,8 +184,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="not register yet?"
-            android:textColor="@color/textcolordefult"
-            />
+            android:textColor="@color/smalltext" />
 
         <TextView
             android:id="@+id/txt_register"

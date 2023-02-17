@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import com.example.quizproject.R
+import kotlinx.android.synthetic.main.fragment_code_message.*
+import kotlinx.android.synthetic.main.fragment_forget_pass.*
 
 
 class CodeMessageFragment : Fragment() {
@@ -22,6 +25,10 @@ class CodeMessageFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController= Navigation.findNavController(view)
+        btn_submit_code_message.setOnClickListener {
+            navController.navigate(R.id.action_codeMessageFragment_to_changePasswordFragment)
+        }
 
     }
 

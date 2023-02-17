@@ -12,7 +12,8 @@
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_createFragment"
-            app:destination="@id/createFragment" />
+            app:destination="@id/createFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_forgetPassFragment"
             app:destination="@id/forgetPassFragment" />
@@ -35,5 +36,18 @@
         android:id="@+id/forgetPassFragment"
         android:name="com.example.quizproject.SignPages.ForgetPassFragment"
         android:label="fragment_forget_pass"
-        tools:layout="@layout/fragment_forget_pass" />
+        tools:layout="@layout/fragment_forget_pass" >
+        <action
+            android:id="@+id/action_forgetPassFragment_to_codeMessageFragment"
+            app:destination="@id/codeMessageFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/codeMessageFragment"
+        android:name="com.example.quizproject.SignPages.CodeMessageFragment"
+        android:label="fragment_code_message"
+        tools:layout="@layout/fragment_code_message" >
+        <action
+            android:id="@+id/action_codeMessageFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+    </fragment>
 </navigation>
