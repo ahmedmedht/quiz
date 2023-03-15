@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_loginFragment_to_forgetPassFragment"
             app:destination="@id/forgetPassFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
     </fragment>
     <fragment
         android:id="@+id/createFragment"
@@ -26,12 +29,19 @@
         <action
             android:id="@+id/action_createFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_createFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
         android:name="com.example.quizproject.SignPages.ChangePasswordFragment"
         android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" />
+        tools:layout="@layout/fragment_change_password" >
+        <action
+            android:id="@+id/action_changePasswordFragment_to_homeActivity"
+            app:destination="@id/homeActivity" />
+    </fragment>
     <fragment
         android:id="@+id/forgetPassFragment"
         android:name="com.example.quizproject.SignPages.ForgetPassFragment"
@@ -50,4 +60,9 @@
             android:id="@+id/action_codeMessageFragment_to_changePasswordFragment"
             app:destination="@id/changePasswordFragment" />
     </fragment>
+    <activity
+        android:id="@+id/homeActivity"
+        android:name="com.example.quizproject.HomeActivity"
+        android:label="activity_home"
+        tools:layout="@layout/activity_home" />
 </navigation>

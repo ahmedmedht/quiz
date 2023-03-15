@@ -43,19 +43,19 @@
         android:background="@drawable/background_edt_txt"/>
 
     <EditText
-        android:id="@+id/edt_txt_phone_create"
+        android:id="@+id/edt_txt_password_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:textSize="20sp"
         android:padding="10dp"
-        android:inputType="textPersonName"
-        android:hint="Enter Your Phone"
+        android:inputType="textPassword"
+        android:hint="Enter Your Password"
         android:background="@drawable/background_edt_txt"/>
 
     <EditText
-        android:id="@+id/edt_txt_password_create"
+        android:id="@+id/edt_txt_password_check_create"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
@@ -63,7 +63,7 @@
         android:textSize="20sp"
         android:padding="10dp"
         android:inputType="textPassword"
-        android:hint="Enter Your Password"
+        android:hint="Confirm Password"
         android:background="@drawable/background_edt_txt"/>
 
     <Button
