@@ -38,13 +38,14 @@ class CreateQuizFragment : Fragment(){
         data_picker.setOnClickListener {
             val calendar = Calendar.getInstance()
             val dialog = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR,year)
-                calendar.set(Calendar.MONTH,month)
-                calendar.set(Calendar.DAY_OF_MONTH,dayOfMonth)
+                calendar.set(Calendar.YEAR, year)
+                calendar.set(Calendar.MONTH, month)
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
                 updateLabel(calendar)
             }
             activity?.let {
-                DatePickerDialog(it, dialog, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                DatePickerDialog(
+                    it, dialog, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.DAY_OF_MONTH)
                 ).show()
             }
@@ -56,14 +57,22 @@ class CreateQuizFragment : Fragment(){
 
         check_random_question.setOnClickListener {
             if (check_random_question.isChecked) {
-                layout_invisible_number_question.isVisible=true
-            }
-            else{
-                layout_invisible_number_question.isVisible=false
-                Toast.makeText(context,"nice",Toast.LENGTH_LONG).show()
+                layout_invisible_number_question.isVisible = true
+            } else {
+                layout_invisible_number_question.isVisible = false
+                Toast.makeText(context, "nice", Toast.LENGTH_LONG).show()
             }
         }
 
+        btn_cancle_create_quiz.setOnClickListener {
+            navController.navigateUp()
+
+
+        }
+
+        btn_next_create_quiz.setOnClickListener {
+            navController.navigate(R.id.action_createQuizFragment_to_createQuestionFragment)
+        }
     }
 
     private fun opentimepicker() {

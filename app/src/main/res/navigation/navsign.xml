@@ -13,13 +13,16 @@
         <action
             android:id="@+id/action_loginFragment_to_createFragment"
             app:destination="@id/createFragment"
+            app:popUpTo="@id/loginFragment"
             app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_loginFragment_to_forgetPassFragment"
-            app:destination="@id/forgetPassFragment" />
+            app:destination="@id/forgetPassFragment"
+            app:popUpTo="@id/loginFragment" />
         <action
             android:id="@+id/action_loginFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
+            app:destination="@id/homeActivity"
+            app:popUpTo="@id/loginFragment" />
     </fragment>
     <fragment
         android:id="@+id/createFragment"
@@ -29,9 +32,6 @@
         <action
             android:id="@+id/action_createFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
-        <action
-            android:id="@+id/action_createFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
@@ -49,7 +49,8 @@
         tools:layout="@layout/fragment_forget_pass" >
         <action
             android:id="@+id/action_forgetPassFragment_to_codeMessageFragment"
-            app:destination="@id/codeMessageFragment" />
+            app:destination="@id/codeMessageFragment"
+            app:popUpTo="@id/forgetPassFragment" />
     </fragment>
     <fragment
         android:id="@+id/codeMessageFragment"
@@ -58,7 +59,8 @@
         tools:layout="@layout/fragment_code_message" >
         <action
             android:id="@+id/action_codeMessageFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment" />
+            app:destination="@id/changePasswordFragment"
+            app:popUpTo="@id/forgetPassFragment" />
     </fragment>
     <activity
         android:id="@+id/homeActivity"

@@ -12,11 +12,22 @@
         tools:layout="@layout/fragment_home" >
         <action
             android:id="@+id/action_homeFragment_to_createQuizFragment"
-            app:destination="@id/createQuizFragment" />
+            app:destination="@id/createQuizFragment"
+            app:popUpTo="@id/homeFragment" />
     </fragment>
     <fragment
         android:id="@+id/createQuizFragment"
         android:name="com.example.quizproject.HomePages.CreateQuizFragment"
         android:label="fragment_create_quiz"
-        tools:layout="@layout/fragment_create_quiz" />
+        tools:layout="@layout/fragment_create_quiz" >
+        <action
+            android:id="@+id/action_createQuizFragment_to_createQuestionFragment"
+            app:destination="@id/createQuestionFragment"
+            app:popUpTo="@id/createQuizFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createQuestionFragment"
+        android:name="com.example.quizproject.HomePages.CreateQuestionFragment"
+        android:label="fragment_create_question"
+        tools:layout="@layout/fragment_create_question" />
 </navigation>
