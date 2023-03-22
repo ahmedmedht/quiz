@@ -58,25 +58,72 @@
         app:layout_constraintTop_toBottomOf="@+id/textView11"
 
         >
-        <EditText
-            android:id="@+id/edt_answer1_quiz"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/edt_question"
-            android:hint="Enter Option number 1"
-            android:inputType="textPersonName"
-            android:layout_marginBottom="16dp"
-            />
-        <TextView
-            android:id="@+id/txt_add_answer_quiz"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="add answer +"
-            android:padding="4dp"
-            android:background="@drawable/txt_add_answer"/>
 
+
+        <RadioGroup
+            android:id="@+id/radio_group_btn_enter_answer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_edt_time_date"
+                android:hint="ANSWER 1"
+                android:inputType="textPersonName" />
+
+            <RadioButton
+                android:id="@+id/radioButton2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_edt_time_date"
+                android:hint="ANSWER 2"
+                android:inputType="textPersonName" />
+
+            <RadioButton
+                android:id="@+id/radioButton3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_edt_time_date"
+                android:hint="ANSWER 3"
+                android:inputType="textPersonName" />
+
+            <RadioButton
+                android:id="@+id/radioButton4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/background_edt_time_date"
+                android:hint="ANSWER 4"
+                android:inputType="textPersonName" />
+        </RadioGroup>
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btn_back_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/btn_background_back"
+        android:text="cancle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/btn_next_or_finish_question"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/background_btn_done"
+        android:text="next"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
