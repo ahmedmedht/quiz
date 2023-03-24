@@ -71,7 +71,7 @@ class CreateQuizFragment : Fragment(){
         }
 
         btn_next_create_quiz.setOnClickListener {
-            val action=CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(5)
+            val action=CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(2)
             navController.navigate(action)
 
         }

@@ -15,8 +15,8 @@
             app:destination="@id/createQuizFragment"
             app:popUpTo="@id/homeFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_joinFragment"
-            app:destination="@id/joinFragment" />
+            android:id="@+id/action_homeFragment_to_joinCodeFragment"
+            app:destination="@id/joinCodeFragment" />
 
     </fragment>
     <fragment
@@ -39,12 +39,33 @@
             android:name="numberQuestion"
             app:argType="integer" />
         <action
-            android:id="@+id/action_createQuestionFragment_to_homeFragment"
-            app:destination="@id/homeFragment" />
+            android:id="@+id/action_createQuestionFragment_to_takeCodeFragment"
+            app:destination="@id/takeCodeFragment" />
     </fragment>
     <fragment
         android:id="@+id/joinFragment"
         android:name="com.example.quizproject.HomePages.JoinFragment"
         android:label="fragment_join"
         tools:layout="@layout/fragment_join" />
+    <fragment
+        android:id="@+id/takeCodeFragment"
+        android:name="com.example.quizproject.HomePages.TakeCodeFragment"
+        android:label="fragment_take_code"
+        tools:layout="@layout/fragment_take_code" >
+        <argument
+            android:name="code_quiz"
+            app:argType="string" />
+        <action
+            android:id="@+id/action_takeCodeFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/joinCodeFragment"
+        android:name="com.example.quizproject.HomePages.JoinCodeFragment"
+        android:label="fragment_join_code"
+        tools:layout="@layout/fragment_join_code" >
+        <action
+            android:id="@+id/action_joinCodeFragment_to_joinFragment"
+            app:destination="@id/joinFragment" />
+    </fragment>
 </navigation>

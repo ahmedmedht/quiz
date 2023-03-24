@@ -10,12 +10,19 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.quizproject.Model.QuestionModel
 import com.example.quizproject.R
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_create_question.*
 
 
 class CreateQuestionFragment : Fragment() {
     private lateinit var addQuestion:ArrayList<QuestionModel>
     private val args:CreateQuestionFragmentArgs by navArgs()
+    private lateinit var database: DatabaseReference
+    private var strArra: List<Char>  = emptyList()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -30,6 +37,10 @@ class CreateQuestionFragment : Fragment() {
         addQuestion= ArrayList()
         val navController = Navigation.findNavController(view)
         var numberquestion=args.numberQuestion
+
+        database = FirebaseDatabase.getInstance().getReference("QuizApp")
+
+
 
         btn_next_or_finish_question.setOnClickListener {
 
@@ -47,18 +58,27 @@ class CreateQuestionFragment : Fragment() {
             }else{
                 numberquestion-=1
                 addDatatoArray()
-                Toast.makeText(context,btn_next_or_finish_question.text.toString() ,Toast.LENGTH_SHORT).show()
-                navController.navigate(R.id.action_createQuestionFragment_to_homeFragment)
+                getrandomarray()
+                var randomcode=strArra.random().toString()+strArra.random().toString()+strArra.random().toString()+strArra.random().toString()+strArra.random().toString()
+
+                writeNewUser(randomcode,addQuestion)
+
+
+                val action=CreateQuestionFragmentDirections.actionCreateQuestionFragmentToTakeCodeFragment(randomcode)
+                navController.navigate(action)
             }
             if (numberquestion==1){
                 btn_next_or_finish_question.text="finish"
-                Toast.makeText(context,"change next to finish",Toast.LENGTH_SHORT).show()
+
             }
 
 
         }
 
     }
+
+
+
 
     private fun addDatatoArray() {
         val arryAnswer: ArrayList<String> = ArrayList()
@@ -84,7 +104,30 @@ class CreateQuestionFragment : Fragment() {
         }
 
     }
+    fun writeNewUser(quizid: String,qeustionQuiz:ArrayList<QuestionModel>) {
 
+            database.child("Quizes").child(quizid).setValue(qeustionQuiz)
+                .addOnCompleteListener{
+                    Toast.makeText(context,"QUIZ UPLOAD SUCCESSFULL",Toast.LENGTH_SHORT).show()
+                }.addOnFailureListener { err ->
+                    Toast.makeText(context,"Error fail upload quiz ${err.message}",Toast.LENGTH_SHORT).show()
+                }
+
+
+    }
+
+    private fun getrandomarray() {
+        for (i in 'a'..'z'){
+            strArra=(strArra+i)
+        }
+        for (i in 'A'..'Z'){
+            strArra=(strArra+i)
+        }
+        for (i in '0'..'9'){
+            strArra=(strArra+i)
+        }
+
+    }
 
 }
 
