@@ -31,7 +31,7 @@ class HomeFragment : Fragment() {
         btn_create_home.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_createQuizFragment)
         }
-        btn_create_home.setOnClickListener {
+        btn_join_home.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_joinCodeFragment)
         }
 

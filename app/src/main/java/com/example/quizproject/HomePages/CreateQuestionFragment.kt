@@ -107,6 +107,7 @@ class CreateQuestionFragment : Fragment() {
     fun writeNewUser(quizid: String,qeustionQuiz:ArrayList<QuestionModel>) {
 
             database.child("Quizes").child(quizid).setValue(qeustionQuiz)
+
                 .addOnCompleteListener{
                     Toast.makeText(context,"QUIZ UPLOAD SUCCESSFULL",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener { err ->

@@ -46,7 +46,11 @@
         android:id="@+id/joinFragment"
         android:name="com.example.quizproject.HomePages.JoinFragment"
         android:label="fragment_join"
-        tools:layout="@layout/fragment_join" />
+        tools:layout="@layout/fragment_join" >
+        <argument
+            android:name="get_code_quiz"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/takeCodeFragment"
         android:name="com.example.quizproject.HomePages.TakeCodeFragment"
