@@ -50,6 +50,9 @@
         <argument
             android:name="get_code_quiz"
             app:argType="string" />
+        <action
+            android:id="@+id/action_joinFragment_to_resultQuizFragment"
+            app:destination="@id/resultQuizFragment" />
     </fragment>
     <fragment
         android:id="@+id/takeCodeFragment"
@@ -72,4 +75,9 @@
             android:id="@+id/action_joinCodeFragment_to_joinFragment"
             app:destination="@id/joinFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/resultQuizFragment"
+        android:name="com.example.quizproject.HomePages.ResultQuizFragment"
+        android:label="fragment_result_quiz"
+        tools:layout="@layout/fragment_result_quiz" />
 </navigation>

@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 
 import com.example.quizproject.R
@@ -20,6 +21,7 @@ class JoinFragment : Fragment() {
     private var getQuizQuestion:DataSnapshot?=null
     private val args:JoinFragmentArgs by navArgs()
     private var result=0
+    private var numberquestion=0
 
 
     override fun onCreateView(
@@ -33,35 +35,49 @@ class JoinFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val navController = Navigation.findNavController(view)
+
         val getCodeQuizJoin=args.getCodeQuiz
         dref= FirebaseDatabase.getInstance().getReference("QuizApp")
-        var numberquestion=1
+
 
         getDataFromFirebase(getCodeQuizJoin)
 
-        //showfirstquestion()
+
 
 
 
         btn_next_quiz_join.setOnClickListener {
-            if(getQuizQuestion?.hasChild(numberquestion.toString()) == true){
-                val qeustion=getQuizQuestion?.child(numberquestion.toString())?.child("question")?.value.toString()
-                txt_question_join.text = qeustion
-                val answer=getQuizQuestion?.child("0")?.child("arrayanswr")
-                txt_answer1.text = answer?.child("0")?.value.toString()
-                txt_answer2.text = answer?.child("1")?.value.toString()
-                txt_answer3.text = answer?.child("2")?.value.toString()
-                txt_answer4.text = answer?.child("3")?.value.toString()
-                numberquestion += 1
-            }else{
+            numberquestion+=1
+            if (getQuizQuestion?.hasChild(numberquestion.toString()) == true){
+                getNextQuestion(numberquestion.toString(), getQuizQuestion!!)
+                Toast.makeText(context,"QUIZ DOESN'T EXISTS ",Toast.LENGTH_LONG).show()
 
             }
+            else{
+                Toast.makeText(context,numberquestion.toString(),Toast.LENGTH_LONG).show()
+
+                navController.navigate(R.id.action_joinFragment_to_resultQuizFragment)
+            }
+
         }
 
     }
+
+    private fun getNextQuestion(numb: String, getQuizQuestion: DataSnapshot) {
+        val qeustion=getQuizQuestion?.child(numb)?.child("question")?.value.toString()
+        txt_question_join.text = qeustion
+        val answer=getQuizQuestion?.child(numb)?.child("arrayanswr")
+        txt_answer1.text = answer?.child("0")?.value.toString()
+        txt_answer2.text = answer?.child("1")?.value.toString()
+        txt_answer3.text = answer?.child("2")?.value.toString()
+        txt_answer4.text = answer?.child("3")?.value.toString()
+    }
+
     private fun getDataFromFirebase(getCodeQuizJoin: String) {
         dref.child("Quizes").child(getCodeQuizJoin).get().addOnSuccessListener {
             if (it.exists()){
+                showfirstquestion(it)
 
                 getQuizQuestion=it
 
@@ -77,10 +93,10 @@ class JoinFragment : Fragment() {
         }
     }
 
-    private fun showfirstquestion() {
-        val qeustion=getQuizQuestion?.child("0")?.child("question")?.value.toString()
+    private fun showfirstquestion(QuestionQuiz: DataSnapshot) {
+        val qeustion=QuestionQuiz?.child(numberquestion.toString())?.child("question")?.value.toString()
         txt_question_join.text = qeustion
-        val answer=getQuizQuestion?.child("0")?.child("arrayanswr")
+        val answer=QuestionQuiz?.child(numberquestion.toString())?.child("arrayanswr")
         txt_answer1.text = answer?.child("0")?.value.toString()
         txt_answer2.text = answer?.child("1")?.value.toString()
         txt_answer3.text = answer?.child("2")?.value.toString()
