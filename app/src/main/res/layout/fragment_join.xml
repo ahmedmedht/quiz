@@ -56,43 +56,47 @@
         app:layout_constraintTop_toBottomOf="@+id/textView111"
         >
 
-        <TextView
+        <Button
             android:id="@+id/txt_answer1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_txt_answer_join"
             android:text="Answer"
+            android:textAllCaps="false"
             android:padding="8dp"
             android:textSize="20sp" />
 
-        <TextView
+        <Button
             android:id="@+id/txt_answer2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_txt_answer_join"
             android:text="Answer"
+            android:textAllCaps="false"
             android:padding="8dp"
             android:textSize="20sp" />
 
-        <TextView
+        <Button
             android:id="@+id/txt_answer3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_txt_answer_join"
             android:text="Answer"
+            android:textAllCaps="false"
             android:padding="8dp"
             android:textSize="20sp" />
 
-        <TextView
+        <Button
             android:id="@+id/txt_answer4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@drawable/background_txt_answer_join"
             android:text="Answer"
+            android:textAllCaps="false"
             android:padding="8dp"
             android:textSize="20sp" />
     </LinearLayout>

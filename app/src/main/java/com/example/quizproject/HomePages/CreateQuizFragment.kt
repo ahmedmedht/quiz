@@ -71,7 +71,8 @@ class CreateQuizFragment : Fragment(){
         }
 
         btn_next_create_quiz.setOnClickListener {
-            val action=CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(2)
+            val numberq=edt_total_number_q_create_quiz.text.toString().toInt()
+            val action=CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(numberq)
             navController.navigate(action)
 
         }
