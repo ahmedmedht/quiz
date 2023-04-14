@@ -1,13 +1,16 @@
 package com.example.quizproject.HomePages
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
 import android.text.format.DateFormat.is24HourFormat
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.core.view.isVisible
@@ -21,6 +24,9 @@ import java.util.*
 
 
 class CreateQuizFragment : Fragment(){
+    private var stTimeQuiz:Long?=null
+    private var enTimeQuiz:Long?=null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,23 +42,17 @@ class CreateQuizFragment : Fragment(){
         val navController = Navigation.findNavController(view)
         //date select
         data_picker.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val dialog = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                calendar.set(Calendar.YEAR, year)
-                calendar.set(Calendar.MONTH, month)
-                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                updateLabel(calendar)
-            }
-            activity?.let {
-                DatePickerDialog(
-                    it, dialog, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH)
-                ).show()
-            }
+            getDataPicker(data_picker)
+        }
+        data_picker_end.setOnClickListener {
+            getDataPicker(data_picker_end)
         }
         //time select
         time_picker.setOnClickListener {
-            opentimepicker()
+            opentimepicker(time_picker)
+        }
+        time_picker_end.setOnClickListener {
+            opentimepicker(time_picker_end)
         }
 
         check_random_question.setOnClickListener {
@@ -72,28 +72,88 @@ class CreateQuizFragment : Fragment(){
 
         btn_next_create_quiz.setOnClickListener {
             val numberq=edt_total_number_q_create_quiz.text.toString().toInt()
-            val action=CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(numberq)
-            navController.navigate(action)
+            val date=getdateandtime()
+            if (date!=null){
+            if (date<1){
+                txt_time_end_quiz_create.setError("End date and must be greater then start date and time")
+
+
+            }else {
+
+                val action =
+                    stTimeQuiz?.let { it1 ->
+                        enTimeQuiz?.let { it2 ->
+                            CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(
+                                numberq,
+                                it1,
+                                it2
+                            )
+                        }
+                    }
+                action?.let { it1 -> navController.navigate(it1) }
+            }
+            }else Toast.makeText(context,"Please enter all required",Toast.LENGTH_LONG).show()
 
         }
     }
 
-    private fun opentimepicker() {
+    private fun getDataPicker(datap: TextView) {
+        val calendar = Calendar.getInstance()
+        val dialog = DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+            calendar.set(Calendar.YEAR, year)
+            calendar.set(Calendar.MONTH, month)
+            calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            updateLabel(calendar,datap)
+        }
+        activity?.let {
+            DatePickerDialog(
+                it, dialog, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH)
+            ).show()
+        }
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun opentimepicker(ttime:TextView){
         val currentTime=Calendar.getInstance()
         val startHour=currentTime.get(Calendar.HOUR)
         val startMin=currentTime.get(Calendar.MINUTE)
+
+
         activity?.let {
-            TimePickerDialog(it,TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                time_picker.setText("$hourOfDay : $minute")
-            },startHour ,startMin ,false).show()
+            TimePickerDialog(it,TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                ttime.text = "$hourOfDay:$minute"
+
+                Toast.makeText(context, "$hourOfDay : $minute", Toast.LENGTH_LONG).show()
+            },startHour ,startMin ,true).show()
         }
+
     }
 
 
-    private fun updateLabel(calendar: Calendar) {
+    private fun updateLabel(calendar: Calendar,datap:TextView) {
         val format="dd-MM-yyyy"
-        val sdf=SimpleDateFormat(format, Locale.UK)
-        data_picker.setText(sdf.format(calendar.time))
+        val sdf=SimpleDateFormat(format, Locale.ITALY)
+        datap.text = sdf.format(calendar.time)
+    }
+
+    private fun getdateandtime(): Long? {
+        val stTime=time_picker.text.toString()+":00"
+        val enTime=time_picker_end.text.toString()+":00"
+        val stDate=data_picker.text.toString()
+        val enDate=data_picker_end.text.toString()
+        val format=SimpleDateFormat("dd-MM-yyyy HH:mm:ss", Locale.ITALY)
+
+        Log.d("timeInfotest","test=$enDate $enTime")
+        val convertDatest=format.parse("$stDate $stTime")
+        val convertDateen=format.parse("$enDate $enTime")
+
+        stTimeQuiz= convertDatest?.time
+        enTimeQuiz= convertDateen?.time
+        return if ((convertDateen != null) && (convertDatest != null)) {
+            convertDateen.time-convertDatest.time
+        }else null
+
     }
 
 

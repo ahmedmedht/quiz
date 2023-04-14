@@ -41,6 +41,13 @@
         <action
             android:id="@+id/action_createQuestionFragment_to_takeCodeFragment"
             app:destination="@id/takeCodeFragment" />
+        <argument
+            android:name="time_start_quiz"
+            app:argType="long" />
+        <argument
+            android:name="time_end_quiz"
+            app:argType="long" />
+
     </fragment>
     <fragment
         android:id="@+id/joinFragment"

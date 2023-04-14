@@ -12,8 +12,6 @@ import com.example.quizproject.Model.QuestionModel
 import com.example.quizproject.R
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_create_question.*
 
 
@@ -21,7 +19,7 @@ class CreateQuestionFragment : Fragment() {
     private lateinit var addQuestion:ArrayList<QuestionModel>
     private val args:CreateQuestionFragmentArgs by navArgs()
     private lateinit var database: DatabaseReference
-    private var strArra: List<Char>  = emptyList()
+    private var strArray: List<Char>  = emptyList()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,6 +35,8 @@ class CreateQuestionFragment : Fragment() {
         addQuestion= ArrayList()
         val navController = Navigation.findNavController(view)
         var numberquestion=args.numberQuestion
+        var startQuizTime=args.timeStartQuiz
+        var endQuizTime=args.timeEndQuiz
 
         database = FirebaseDatabase.getInstance().getReference("QuizApp")
 
@@ -59,9 +59,9 @@ class CreateQuestionFragment : Fragment() {
                 numberquestion-=1
                 addDatatoArray()
                 getrandomarray()
-                var randomcode=strArra.random().toString()+strArra.random().toString()+strArra.random().toString()+strArra.random().toString()+strArra.random().toString()
+                var randomcode=strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()
 
-                writeNewUser(randomcode,addQuestion)
+                uploadQuizToFirebase(randomcode,addQuestion,startQuizTime,endQuizTime)
 
 
                 val action=CreateQuestionFragmentDirections.actionCreateQuestionFragmentToTakeCodeFragment(randomcode)
@@ -104,9 +104,14 @@ class CreateQuestionFragment : Fragment() {
         }
 
     }
-    fun writeNewUser(quizid: String,qeustionQuiz:ArrayList<QuestionModel>) {
+    private fun uploadQuizToFirebase(
+        quizid: String,
+        qeustionQuiz: ArrayList<QuestionModel>,
+        startQuizTime: Long,
+        endQuizTime: Long,
+    ) {
 
-            database.child("Quizes").child(quizid).setValue(qeustionQuiz)
+            database.child("Quizes").child(quizid).child(startQuizTime.toString()).child(endQuizTime.toString()).setValue(qeustionQuiz)
 
                 .addOnCompleteListener{
                     Toast.makeText(context,"QUIZ UPLOAD SUCCESSFULL",Toast.LENGTH_SHORT).show()
@@ -119,13 +124,13 @@ class CreateQuestionFragment : Fragment() {
 
     private fun getrandomarray() {
         for (i in 'a'..'z'){
-            strArra=(strArra+i)
+            strArray=(strArray+i)
         }
         for (i in 'A'..'Z'){
-            strArra=(strArra+i)
+            strArray=(strArray+i)
         }
         for (i in '0'..'9'){
-            strArra=(strArra+i)
+            strArray=(strArray+i)
         }
 
     }
