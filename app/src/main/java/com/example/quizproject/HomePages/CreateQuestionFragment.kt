@@ -38,6 +38,7 @@ class CreateQuestionFragment : Fragment() {
         var startQuizTime=args.timeStartQuiz
         var endQuizTime=args.timeEndQuiz
 
+
         database = FirebaseDatabase.getInstance().getReference("QuizApp")
 
 
@@ -93,25 +94,25 @@ class CreateQuestionFragment : Fragment() {
     }
 
     private fun checkedradio(): Int {
-        val rbId = radio_group_btn_enter_answer.getCheckedRadioButtonId()
 
-        when (rbId) {
-            R.id.radioButton -> return 1
-            R.id.radioButton2 -> return 2
-            R.id.radioButton3 -> return 3
-            R.id.radioButton4 -> return 4
-            else -> return 0
+        return when (radio_group_btn_enter_answer.checkedRadioButtonId) {
+            R.id.radioButton -> 1
+            R.id.radioButton2 -> 2
+            R.id.radioButton3 -> 3
+            R.id.radioButton4 -> 4
+            else -> 0
         }
 
     }
     private fun uploadQuizToFirebase(
         quizid: String,
-        qeustionQuiz: ArrayList<QuestionModel>,
+        questionQuiz: ArrayList<QuestionModel>,
         startQuizTime: Long,
-        endQuizTime: Long,
+        endQuizTime: Long
     ) {
-
-            database.child("Quizes").child(quizid).child(startQuizTime.toString()).child(endQuizTime.toString()).setValue(qeustionQuiz)
+        database.child("Quizes").child(quizid).child("StartTimeQuiz").setValue(startQuizTime)
+        database.child("Quizes").child(quizid).child("EndTimeQuiz").setValue(endQuizTime)
+        database.child("Quizes").child(quizid).child("QuizQuestions").setValue(questionQuiz)
 
                 .addOnCompleteListener{
                     Toast.makeText(context,"QUIZ UPLOAD SUCCESSFULL",Toast.LENGTH_SHORT).show()
