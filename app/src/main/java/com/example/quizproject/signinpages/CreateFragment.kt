@@ -1,4 +1,4 @@
-package com.example.quizproject.SignPages
+package com.example.quizproject.signinpages
 
 import android.os.Bundle
 import android.util.Patterns
@@ -9,17 +9,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import com.example.quizproject.Model.AccountInfo
+import com.example.quizproject.model.AccountInfo
 import com.example.quizproject.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_create.*
-import java.util.regex.Pattern
 
 
 class CreateFragment : Fragment() {
@@ -97,10 +94,12 @@ class CreateFragment : Fragment() {
 
         }
     private fun addUserToDatebase(name: String, email: String, uid: String) {
-        mDbRef= FirebaseDatabase.getInstance().getReference()
+        mDbRef= FirebaseDatabase.getInstance().reference
         mDbRef.child("user").child(uid).setValue(AccountInfo(name,email,uid))
     }
 }
+
+
 
 
 

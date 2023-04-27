@@ -1,23 +1,19 @@
-package com.example.quizproject.HomePages
+package com.example.quizproject.homepages
 
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.os.Bundle
-import android.text.format.DateFormat.is24HourFormat
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.TimePicker
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import com.example.quizproject.R
-import com.google.android.material.timepicker.MaterialTimePicker
-import com.google.android.material.timepicker.TimeFormat
 import kotlinx.android.synthetic.main.fragment_create_quiz.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -75,7 +71,7 @@ class CreateQuizFragment : Fragment(){
             val date=getdateandtime()
             if (date!=null){
             if (date<1){
-                txt_time_end_quiz_create.setError("End date and must be greater then start date and time")
+                txt_time_end_quiz_create.error = "End date and must be greater then start date and time"
 
 
             }else {

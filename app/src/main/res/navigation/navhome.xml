@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.example.quizproject.HomePages.HomeFragment"
+        android:name="com.example.quizproject.homepages.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -21,7 +21,7 @@
     </fragment>
     <fragment
         android:id="@+id/createQuizFragment"
-        android:name="com.example.quizproject.HomePages.CreateQuizFragment"
+        android:name="com.example.quizproject.homepages.CreateQuizFragment"
         android:label="fragment_create_quiz"
         tools:layout="@layout/fragment_create_quiz" >
         <action
@@ -32,7 +32,7 @@
     </fragment>
     <fragment
         android:id="@+id/createQuestionFragment"
-        android:name="com.example.quizproject.HomePages.CreateQuestionFragment"
+        android:name="com.example.quizproject.homepages.CreateQuestionFragment"
         android:label="fragment_create_question"
         tools:layout="@layout/fragment_create_question" >
         <argument
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/joinFragment"
-        android:name="com.example.quizproject.HomePages.JoinFragment"
+        android:name="com.example.quizproject.homepages.JoinFragment"
         android:label="fragment_join"
         tools:layout="@layout/fragment_join" >
         <argument
@@ -63,7 +63,7 @@
     </fragment>
     <fragment
         android:id="@+id/takeCodeFragment"
-        android:name="com.example.quizproject.HomePages.TakeCodeFragment"
+        android:name="com.example.quizproject.homepages.TakeCodeFragment"
         android:label="fragment_take_code"
         tools:layout="@layout/fragment_take_code" >
         <argument
@@ -75,7 +75,7 @@
     </fragment>
     <fragment
         android:id="@+id/joinCodeFragment"
-        android:name="com.example.quizproject.HomePages.JoinCodeFragment"
+        android:name="com.example.quizproject.homepages.JoinCodeFragment"
         android:label="fragment_join_code"
         tools:layout="@layout/fragment_join_code" >
         <action
@@ -84,7 +84,7 @@
     </fragment>
     <fragment
         android:id="@+id/resultQuizFragment"
-        android:name="com.example.quizproject.HomePages.ResultQuizFragment"
+        android:name="com.example.quizproject.homepages.ResultQuizFragment"
         android:label="fragment_result_quiz"
         tools:layout="@layout/fragment_result_quiz" >
         <argument
@@ -93,5 +93,8 @@
         <action
             android:id="@+id/action_resultQuizFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <argument
+            android:name="codeQuiz"
+            app:argType="string" />
     </fragment>
 </navigation>

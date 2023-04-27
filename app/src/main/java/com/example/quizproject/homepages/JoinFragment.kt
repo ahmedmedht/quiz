@@ -1,6 +1,5 @@
-package com.example.quizproject.HomePages
+package com.example.quizproject.homepages
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.navigation.Navigation
@@ -34,8 +32,7 @@ class JoinFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        val view= inflater.inflate(R.layout.fragment_join, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_join, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -71,7 +68,7 @@ class JoinFragment : Fragment() {
                 } else {
                     Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
 
-                    val action=JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(result.toString())
+                    val action=JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(result.toString(),args.getCodeQuiz)
                     navController.navigate(action)
                 }
             }else{
@@ -126,13 +123,13 @@ class JoinFragment : Fragment() {
     }
 
     private fun getNextQuestion(numb: String, getQuizQuestion: DataSnapshot) {
-        val qeustion=getQuizQuestion?.child(numb)?.child("question")?.value.toString()
+        val qeustion= getQuizQuestion.child(numb).child("question")?.value.toString()
         txt_question_join.text = qeustion
-        val answer=getQuizQuestion?.child(numb)?.child("arrayanswr")
-        txt_answer1.text = answer?.child("0")?.value.toString()
-        txt_answer2.text = answer?.child("1")?.value.toString()
-        txt_answer3.text = answer?.child("2")?.value.toString()
-        txt_answer4.text = answer?.child("3")?.value.toString()
+        val answer= getQuizQuestion.child(numb).child("arrayanswr")
+        txt_answer1.text = answer.child("0").value.toString()
+        txt_answer2.text = answer.child("1").value.toString()
+        txt_answer3.text = answer.child("2").value.toString()
+        txt_answer4.text = answer.child("3").value.toString()
     }
 
     private fun getDataFromFirebase(getCodeQuizJoin: String) {
@@ -155,21 +152,14 @@ class JoinFragment : Fragment() {
     }
 
     private fun showfirstquestion(QuestionQuiz: DataSnapshot) {
-        val qeustion=QuestionQuiz?.child(numberquestion.toString())?.child("question")?.value.toString()
+        val qeustion=QuestionQuiz.child(numberquestion.toString()).child("question")?.value.toString()
         txt_question_join.text = qeustion
-        val answer=QuestionQuiz?.child(numberquestion.toString())?.child("arrayanswr")
-        txt_answer1.text = answer?.child("0")?.value.toString()
-        txt_answer2.text = answer?.child("1")?.value.toString()
-        txt_answer3.text = answer?.child("2")?.value.toString()
-        txt_answer4.text = answer?.child("3")?.value.toString()
+        val answer=QuestionQuiz.child(numberquestion.toString()).child("arrayanswr")
+        txt_answer1.text = answer.child("0").value.toString()
+        txt_answer2.text = answer.child("1").value.toString()
+        txt_answer3.text = answer.child("2").value.toString()
+        txt_answer4.text = answer.child("3").value.toString()
     }
-
-
-
-
-
-
-
 
 }
 

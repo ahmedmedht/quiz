@@ -1,4 +1,4 @@
-package com.example.quizproject.Model
+package com.example.quizproject.model
 
 class AccountInfo {
     var name:String?=null

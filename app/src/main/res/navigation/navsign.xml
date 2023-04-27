@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.quizproject.SignPages.LoginFragment"
+        android:name="com.example.quizproject.signinpages.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -26,7 +26,7 @@
     </fragment>
     <fragment
         android:id="@+id/createFragment"
-        android:name="com.example.quizproject.SignPages.CreateFragment"
+        android:name="com.example.quizproject.signinpages.CreateFragment"
         android:label="fragment_create"
         tools:layout="@layout/fragment_create" >
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/changePasswordFragment"
-        android:name="com.example.quizproject.SignPages.ChangePasswordFragment"
+        android:name="com.example.quizproject.signinpages.ChangePasswordFragment"
         android:label="fragment_change_password"
         tools:layout="@layout/fragment_change_password" >
         <action
@@ -44,7 +44,7 @@
     </fragment>
     <fragment
         android:id="@+id/forgetPassFragment"
-        android:name="com.example.quizproject.SignPages.ForgetPassFragment"
+        android:name="com.example.quizproject.signinpages.ForgetPassFragment"
         android:label="fragment_forget_pass"
         tools:layout="@layout/fragment_forget_pass" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/codeMessageFragment"
-        android:name="com.example.quizproject.SignPages.CodeMessageFragment"
+        android:name="com.example.quizproject.signinpages.CodeMessageFragment"
         android:label="fragment_code_message"
         tools:layout="@layout/fragment_code_message" >
         <action
@@ -66,5 +66,6 @@
         android:id="@+id/homeActivity"
         android:name="com.example.quizproject.HomeActivity"
         android:label="activity_home"
-        tools:layout="@layout/activity_home" />
+        tools:layout="@layout/activity_home" >
+    </activity>
 </navigation>

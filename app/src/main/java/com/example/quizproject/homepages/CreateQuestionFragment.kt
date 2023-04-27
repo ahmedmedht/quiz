@@ -1,4 +1,4 @@
-package com.example.quizproject.HomePages
+package com.example.quizproject.homepages
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,28 +6,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
-import com.example.quizproject.Model.QuestionModel
+import com.example.quizproject.model.QuestionModel
 import com.example.quizproject.R
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_create_question.*
 
 
 class CreateQuestionFragment : Fragment() {
-    private lateinit var addQuestion:ArrayList<QuestionModel>
-    private val args:CreateQuestionFragmentArgs by navArgs()
+
     private lateinit var database: DatabaseReference
+    private val args:CreateQuestionFragmentArgs by navArgs()
+    private lateinit var addQuestion:ArrayList<QuestionModel>
+    private lateinit var databaseuser: DatabaseReference
     private var strArray: List<Char>  = emptyList()
+    private val currentUser = FirebaseAuth.getInstance().currentUser
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
 
-        val view=inflater.inflate(R.layout.fragment_create_question, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_create_question, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,11 +40,12 @@ class CreateQuestionFragment : Fragment() {
         addQuestion= ArrayList()
         val navController = Navigation.findNavController(view)
         var numberquestion=args.numberQuestion
-        var startQuizTime=args.timeStartQuiz
-        var endQuizTime=args.timeEndQuiz
+        val startQuizTime=args.timeStartQuiz
+        val endQuizTime=args.timeEndQuiz
 
 
         database = FirebaseDatabase.getInstance().getReference("QuizApp")
+        databaseuser = FirebaseDatabase.getInstance().getReference("user")
 
 
 
@@ -62,7 +68,7 @@ class CreateQuestionFragment : Fragment() {
                 getrandomarray()
                 var randomcode=strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()
 
-                uploadQuizToFirebase(randomcode,addQuestion,startQuizTime,endQuizTime)
+                uploadQuizToFirebase(randomcode,addQuestion,startQuizTime,endQuizTime,currentUser,args.numberQuestion)
 
 
                 val action=CreateQuestionFragmentDirections.actionCreateQuestionFragmentToTakeCodeFragment(randomcode)
@@ -108,17 +114,27 @@ class CreateQuestionFragment : Fragment() {
         quizid: String,
         questionQuiz: ArrayList<QuestionModel>,
         startQuizTime: Long,
-        endQuizTime: Long
+        endQuizTime: Long,
+        currentUser: FirebaseUser?,
+        numberQuestion: Int
     ) {
         database.child("Quizes").child(quizid).child("StartTimeQuiz").setValue(startQuizTime)
         database.child("Quizes").child(quizid).child("EndTimeQuiz").setValue(endQuizTime)
         database.child("Quizes").child(quizid).child("QuizQuestions").setValue(questionQuiz)
+        database.child("Quizes").child(quizid).child("NumberQuestion").setValue(numberQuestion)
+        if (currentUser != null) {
+            database.child("Quizes").child(quizid).child("userIdCreatedQuiz").setValue(currentUser.uid)
+        }
+
+        if (currentUser != null) {
+            databaseuser.child(currentUser.uid).child("QuizCreated").child(quizid).setValue(numberQuestion)
 
                 .addOnCompleteListener{
                     Toast.makeText(context,"QUIZ UPLOAD SUCCESSFULL",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener { err ->
                     Toast.makeText(context,"Error fail upload quiz ${err.message}",Toast.LENGTH_SHORT).show()
                 }
+        }
 
 
     }

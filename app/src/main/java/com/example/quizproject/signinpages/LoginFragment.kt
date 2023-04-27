@@ -1,4 +1,4 @@
-package com.example.quizproject.SignPages
+package com.example.quizproject.signinpages
 
 import android.os.Bundle
 import android.util.Patterns
@@ -12,7 +12,6 @@ import androidx.navigation.Navigation
 import com.example.quizproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DatabaseReference
 import com.google.firebase.ktx.Firebase
 import kotlinx.android.synthetic.main.fragment_create.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -22,7 +21,6 @@ import kotlinx.android.synthetic.main.fragment_login.*
 class LoginFragment : Fragment() {
 
     private lateinit var mAuth: FirebaseAuth
-    private lateinit var mDbRef: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,7 +62,7 @@ class LoginFragment : Fragment() {
             }
 
 
-           // navController.navigate(R.id.action_loginFragment_to_homeActivity)
+
         }
 
     }
@@ -79,6 +77,7 @@ class LoginFragment : Fragment() {
 
                     if (user != null) {
                         if(user.isEmailVerified) {
+
                             Toast.makeText(context, "Successfully Login", Toast.LENGTH_LONG).show()
                             navController.navigate(R.id.action_loginFragment_to_homeActivity)
                         }else{

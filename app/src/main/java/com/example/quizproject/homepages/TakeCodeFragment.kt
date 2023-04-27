@@ -1,4 +1,4 @@
-package com.example.quizproject.HomePages
+package com.example.quizproject.homepages
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,26 +8,31 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.quizproject.R
-import kotlinx.android.synthetic.main.fragment_result_quiz.*
+import kotlinx.android.synthetic.main.fragment_take_code.*
+import kotlinx.android.synthetic.main.fragment_take_code.view.*
 
-class ResultQuizFragment : Fragment() {
-    private val args:ResultQuizFragmentArgs by navArgs()
+
+class TakeCodeFragment : Fragment() {
+
+    private val args:TakeCodeFragmentArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view =inflater.inflate(R.layout.fragment_result_quiz, container, false)
+        val view= inflater.inflate(R.layout.fragment_take_code, container, false)
+        val codeQuiz=args.codeQuiz
+
+        view.txt_code_quiz.setText(codeQuiz)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
-        val resultQ=args.score
-        txt_result_quiz.text="result = $resultQ"
-        btn_go_home_from_result.setOnClickListener {
-            navController.navigate(R.id.action_resultQuizFragment_to_homeFragment)
+        btn_go_home_from_take_code.setOnClickListener {
+            navController.navigate(R.id.action_takeCodeFragment_to_homeFragment)
         }
     }
 

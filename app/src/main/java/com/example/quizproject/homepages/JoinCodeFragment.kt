@@ -1,6 +1,5 @@
-package com.example.quizproject.HomePages
+package com.example.quizproject.homepages
 
-import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
@@ -11,15 +10,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.navigation.Navigation
-import com.example.quizproject.Model.QuestionModel
+import com.example.quizproject.model.QuestionModel
 import com.example.quizproject.R
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_code_message.*
 import kotlinx.android.synthetic.main.fragment_join_code.*
 import kotlinx.coroutines.*
-import java.text.SimpleDateFormat
 import java.util.*
-import java.util.concurrent.CompletableFuture
 import kotlin.collections.ArrayList
 
 class JoinCodeFragment : Fragment() {
@@ -97,7 +94,7 @@ class JoinCodeFragment : Fragment() {
             Toast.makeText(context, "QUIZ DOESN'T EXISTS ", Toast.LENGTH_LONG).show()
             checkDate = false
 
-            callback(checkDate)
+            callback(false)
         }
         Log.d("arraytest12", checkDate.toString())
     }

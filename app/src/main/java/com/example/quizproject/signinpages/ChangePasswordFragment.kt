@@ -1,4 +1,4 @@
-package com.example.quizproject.SignPages
+package com.example.quizproject.signinpages
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,27 +7,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.Navigation
 import com.example.quizproject.R
-import kotlinx.android.synthetic.main.fragment_forget_pass.*
-import kotlinx.android.synthetic.main.fragment_login.*
 
+class ChangePasswordFragment : Fragment() {
 
-class ForgetPassFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        var view= inflater.inflate(R.layout.fragment_forget_pass, container, false)
+        // Inflate the layout for this fragment
+        var view= inflater.inflate(R.layout.fragment_change_password, container, false)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navController= Navigation.findNavController(view)
-        btn_next_forget.setOnClickListener {
-            navController.navigate(R.id.action_forgetPassFragment_to_codeMessageFragment)
-        }
+
 
     }
+
+
 }

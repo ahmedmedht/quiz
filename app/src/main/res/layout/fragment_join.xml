@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/textcolordefult"
-    tools:context=".HomePages.JoinFragment">
+    tools:context=".homepages.JoinFragment">
 
     <TextView
         android:id="@+id/textView14"
