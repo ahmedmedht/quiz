@@ -62,7 +62,7 @@ class JoinCodeFragment : Fragment() {
     ) {
         var checkDate = false
 
-        dref.child("Quizes").child(getCodeQuizJoin).get().addOnSuccessListener {
+        dref.child("Quizzes").child(getCodeQuizJoin).get().addOnSuccessListener {
             if (it.exists()) {
                 val dateNow = Date().time
                 val getStartTime = it.child("StartTimeQuiz").value.toString().toLong()

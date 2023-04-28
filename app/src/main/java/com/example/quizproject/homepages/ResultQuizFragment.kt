@@ -12,11 +12,16 @@ import androidx.navigation.fragment.navArgs
 import com.example.quizproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_result_quiz.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 
 class ResultQuizFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    private lateinit var database: DatabaseReference
+    private lateinit var database: DatabaseReference 
     private lateinit var databaseUserCreated: DatabaseReference
 
     private val args:ResultQuizFragmentArgs by navArgs()
@@ -34,40 +39,29 @@ class ResultQuizFragment : Fragment() {
         val navController = Navigation.findNavController(view)
         val resultQ=args.score
         txt_result_quiz.text="result = $resultQ"
-        uploadDataScore(resultQ)
+        databaseUserCreated=FirebaseDatabase.getInstance().reference
+        database=FirebaseDatabase.getInstance().reference
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val userIdCreatedQuiz = getUserIdCreated(args.codeQuiz)
+            uploadDataScore(resultQ, args.codeQuiz, userIdCreatedQuiz)
+            Toast.makeText(context,"Upload score user successful ", Toast.LENGTH_LONG).show()
+        }
+
         btn_go_home_from_result.setOnClickListener {
             navController.navigate(R.id.action_resultQuizFragment_to_homeFragment)
         }
     }
 
+    private suspend fun getUserIdCreated(codeQuiz: String): String {
+        val dataSnapshot = databaseUserCreated.child("QuizApp").child("Quizzes").child(codeQuiz)
+            .child("userIdCreatedQuiz").get().await()
 
-    private fun uploadDataScore(resultQ: String) {
-        val codeQuiz=args.codeQuiz
-        val getUserIdCreated:String=getUserCreated(codeQuiz)
+        return dataSnapshot.value.toString()
+    }
 
-
-        database.child("user").child(getUserIdCreated).child("QuizCreated").child(codeQuiz).child("UserFinishQuiz")
+    private fun uploadDataScore(resultQ: String, codeQuiz: String, userIdCreatedQuiz: String) {
+        database.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(codeQuiz).child("UserFinishQuiz")
             .child(currentUser).setValue(resultQ)
     }
-
-
-    private fun getUserCreated(codeQuiz: String): String {
-        var userId=""
-        databaseUserCreated.child("QuizApp").child("Quizzes").child(codeQuiz)
-            .child("userIdCreatedQuiz").get().addOnSuccessListener {
-                if (it.exists()){
-                    userId=it.value.toString()
-                    Toast.makeText(context,"Upload score user successful ", Toast.LENGTH_LONG).show()
-                }else{
-                    Toast.makeText(context,"Erorr score user not upload", Toast.LENGTH_LONG).show()
-
-                }
-            }.addOnFailureListener {
-                Toast.makeText(context,"Erorr", Toast.LENGTH_LONG).show()
-
-            }
-        return userId
-    }
-
-
 }

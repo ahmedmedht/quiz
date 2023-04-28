@@ -133,7 +133,7 @@ class JoinFragment : Fragment() {
     }
 
     private fun getDataFromFirebase(getCodeQuizJoin: String) {
-        dref.child("Quizes").child(getCodeQuizJoin).child("QuizQuestions").get().addOnSuccessListener {
+        dref.child("Quizzes").child(getCodeQuizJoin).child("QuizQuestions").get().addOnSuccessListener {
             if (it.exists()){
                 showfirstquestion(it)
 
