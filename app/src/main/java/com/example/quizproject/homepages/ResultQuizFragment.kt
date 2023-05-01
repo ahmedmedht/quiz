@@ -23,6 +23,7 @@ class ResultQuizFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
     private lateinit var database: DatabaseReference 
     private lateinit var databaseUserCreated: DatabaseReference
+    private lateinit var dataJoinUser: DatabaseReference
 
     private val args:ResultQuizFragmentArgs by navArgs()
 
@@ -41,6 +42,7 @@ class ResultQuizFragment : Fragment() {
         txt_result_quiz.text="result = $resultQ"
         databaseUserCreated=FirebaseDatabase.getInstance().reference
         database=FirebaseDatabase.getInstance().reference
+        dataJoinUser=FirebaseDatabase.getInstance().reference
 
         GlobalScope.launch(Dispatchers.Main) {
             val userIdCreatedQuiz = getUserIdCreated(args.codeQuiz)
@@ -63,5 +65,7 @@ class ResultQuizFragment : Fragment() {
     private fun uploadDataScore(resultQ: String, codeQuiz: String, userIdCreatedQuiz: String) {
         database.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(codeQuiz).child("UserFinishQuiz")
             .child(currentUser).setValue(resultQ)
+        database.child("user").child(currentUser).child("QuizJoin").child(codeQuiz).setValue(resultQ)
+
     }
 }

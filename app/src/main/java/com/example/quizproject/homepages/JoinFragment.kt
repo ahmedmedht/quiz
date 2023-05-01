@@ -53,8 +53,7 @@ class JoinFragment : Fragment() {
         btn_next_quiz_join.setOnClickListener {
             if (btnSelected!=null) {
                 val correctAnswer=getQuizQuestion?.child(numberquestion.toString())?.child("numberAnswer")?.value
-                Toast.makeText(context, "correct Answer : $correctAnswer , UserAnswer=$btnSelected", Toast.LENGTH_LONG)
-                    .show()
+
                 if (correctAnswer.toString() == btnSelected.toString()){
                     result+=1
                 }
@@ -62,8 +61,7 @@ class JoinFragment : Fragment() {
                 if (getQuizQuestion?.hasChild(numberquestion.toString()) == true) {
                     setColorDefult()
                     getNextQuestion(numberquestion.toString(), getQuizQuestion!!)
-                    Toast.makeText(context, "Qestion number : $numberquestion", Toast.LENGTH_LONG)
-                        .show()
+
                     btnSelected=null
                 } else {
                     Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
@@ -73,7 +71,7 @@ class JoinFragment : Fragment() {
                 }
             }else{
                 Toast.makeText(context, "please select answer", Toast.LENGTH_LONG).show()
-                txt_question_join.setError("please select answer")
+                txt_question_join.error = "please select answer"
             }
 
 
