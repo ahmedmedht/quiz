@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.view.isVisible
 
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -26,6 +28,9 @@ class CreateQuestionFragment : Fragment() {
     private lateinit var databaseuser: DatabaseReference
     private var strArray: List<Char>  = emptyList()
     private val currentUser = FirebaseAuth.getInstance().currentUser
+    private lateinit var btnWriteNow:RadioButton
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,6 +52,31 @@ class CreateQuestionFragment : Fragment() {
         database = FirebaseDatabase.getInstance().getReference("QuizApp")
         databaseuser = FirebaseDatabase.getInstance().getReference("user")
 
+        radioButton.setOnClickListener {
+            layout_answer_enter.isVisible=true
+            edt_enter_answer.setText(radioButton.text.toString())
+            btnWriteNow=radioButton
+        }
+        radioButton2.setOnClickListener {
+            layout_answer_enter.isVisible=true
+            edt_enter_answer.setText(radioButton2.text.toString())
+            btnWriteNow=radioButton2
+        }
+        radioButton3.setOnClickListener {
+            layout_answer_enter.isVisible=true
+            edt_enter_answer.setText(radioButton3.text.toString())
+            btnWriteNow=radioButton3
+        }
+        radioButton4.setOnClickListener {
+            layout_answer_enter.isVisible=true
+            edt_enter_answer.setText(radioButton4.text.toString())
+            btnWriteNow=radioButton4
+        }
+
+        img_btn_change_txt_answer.setOnClickListener {
+            btnWriteNow.text = edt_enter_answer.text.toString()
+            layout_answer_enter.isVisible=false
+        }
 
 
         btn_next_or_finish_question.setOnClickListener {
@@ -85,6 +115,9 @@ class CreateQuestionFragment : Fragment() {
     }
 
 
+    private fun writeAnswer() {
+        edt_enter_answer.isVisible=true
+    }
 
 
     private fun addDatatoArray() {

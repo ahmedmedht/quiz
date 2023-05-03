@@ -67,7 +67,7 @@ class CreateQuizFragment : Fragment(){
         }
 
         btn_next_create_quiz.setOnClickListener {
-            val numberq=edt_total_number_q_create_quiz.text.toString().toInt()
+            val numberq=edt_total_number_q_create_quiz.text.toString()
             val date=getdateandtime()
             if (date!=null){
             if (date<1){
@@ -75,18 +75,21 @@ class CreateQuizFragment : Fragment(){
 
 
             }else {
-
-                val action =
-                    stTimeQuiz?.let { it1 ->
-                        enTimeQuiz?.let { it2 ->
-                            CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(
-                                numberq,
-                                it1,
-                                it2
-                            )
+                if (edt_total_number_q_create_quiz.text.toString()!="") {
+                    val action =
+                        stTimeQuiz?.let { it1 ->
+                            enTimeQuiz?.let { it2 ->
+                                CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(
+                                    numberq.toInt(),
+                                    it1,
+                                    it2
+                                )
+                            }
                         }
-                    }
-                action?.let { it1 -> navController.navigate(it1) }
+                    action?.let { it1 -> navController.navigate(it1) }
+                }else{
+                    Toast.makeText(context,"Please enter all required",Toast.LENGTH_LONG).show()
+                }
             }
             }else Toast.makeText(context,"Please enter all required",Toast.LENGTH_LONG).show()
 
