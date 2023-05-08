@@ -47,6 +47,11 @@
         <argument
             android:name="time_end_quiz"
             app:argType="long" />
+        <argument
+            android:name="name_quiz"
+            app:argType="string" />
+        <argument android:name="num_txt_q"
+            app:argType="integer" />
 
     </fragment>
     <fragment

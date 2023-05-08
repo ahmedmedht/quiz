@@ -27,6 +27,7 @@ class CreateQuestionFragment : Fragment() {
     private lateinit var addQuestion:ArrayList<QuestionModel>
     private lateinit var databaseuser: DatabaseReference
     private var strArray: List<Char>  = emptyList()
+    private lateinit var questionTextArray:ArrayList<String>
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private lateinit var btnWriteNow:RadioButton
 
@@ -43,10 +44,21 @@ class CreateQuestionFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addQuestion= ArrayList()
+        questionTextArray=ArrayList()
         val navController = Navigation.findNavController(view)
         var numberquestion=args.numberQuestion
         val startQuizTime=args.timeStartQuiz
         val endQuizTime=args.timeEndQuiz
+        val totalNumber=args.numTxtQ
+//        for (n in 0..totalNumber){
+//            btn_next_or_finish_question.setOnClickListener {
+//
+//            }
+//        }
+        if (totalNumber==0){
+            layout_add_question_question.isVisible=true
+        }
+            var txtEdit=totalNumber
 
 
         database = FirebaseDatabase.getInstance().getReference("QuizApp")
@@ -80,36 +92,63 @@ class CreateQuestionFragment : Fragment() {
 
 
         btn_next_or_finish_question.setOnClickListener {
-
-            if (btn_next_or_finish_question.text.toString().equals("next"))
-            {
-                numberquestion-=1
-                addDatatoArray()
+            if (txtEdit>0){
+                if (edt_question_quiz.text.toString()==""){
+                    edt_question_quiz.error="Please Enter Your Question!"
+                }else{
+                    questionTextArray.add(edt_question_quiz.text.toString())
+                    txtEdit-=1
+                }
+                if (txtEdit==0){
+                    layout_add_question_question.isVisible=true
+                }
                 edt_question_quiz.setText("")
-                radioButton.text=""
-                radioButton2.text=""
-                radioButton3.text=""
-                radioButton4.text=""
-                Toast.makeText(context,"change to next question $numberquestion",Toast.LENGTH_SHORT).show()
-
-            }else{
-                numberquestion-=1
-                addDatatoArray()
-                getrandomarray()
-                var randomcode=strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()+strArray.random().toString()
-
-                uploadQuizToFirebase(randomcode,addQuestion,startQuizTime,endQuizTime,currentUser,args.numberQuestion)
-
-
-                val action=CreateQuestionFragmentDirections.actionCreateQuestionFragmentToTakeCodeFragment(randomcode)
-                navController.navigate(action)
             }
-            if (numberquestion==1){
-                btn_next_or_finish_question.text="finish"
+            else {
+                if (btn_next_or_finish_question.text.toString().equals("next")) {
+                    numberquestion -= 1
+                    addDatatoArray()
+                    edt_question_quiz.setText("")
+                    radioButton.text = ""
+                    radioButton2.text = ""
+                    radioButton3.text = ""
+                    radioButton4.text = ""
+                    Toast.makeText(
+                        context,
+                        "change to next question $numberquestion",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                } else {
+                    numberquestion -= 1
+                    addDatatoArray()
+                    getrandomarray()
+                    var randomcode = strArray.random().toString() + strArray.random()
+                        .toString() + strArray.random().toString() + strArray.random()
+                        .toString() + strArray.random().toString()
+
+                    uploadQuizToFirebase(
+                        randomcode,
+                        addQuestion,
+                        startQuizTime,
+                        endQuizTime,
+                        currentUser,
+                        args.numberQuestion
+                    )
+
+
+                    val action =
+                        CreateQuestionFragmentDirections.actionCreateQuestionFragmentToTakeCodeFragment(
+                            randomcode
+                        )
+                    navController.navigate(action)
+                }
+                if (numberquestion == 1) {
+                    btn_next_or_finish_question.text = "finish"
+
+                }
 
             }
-
-
         }
 
     }
@@ -151,6 +190,10 @@ class CreateQuestionFragment : Fragment() {
         currentUser: FirebaseUser?,
         numberQuestion: Int
     ) {
+        if(questionTextArray.isEmpty()){1+1}
+            else{
+                database.child("Quizzes").child(quizid).child("TextQuestions").setValue(questionTextArray)
+            }
         database.child("Quizzes").child(quizid).child("StartTimeQuiz").setValue(startQuizTime)
         database.child("Quizzes").child(quizid).child("EndTimeQuiz").setValue(endQuizTime)
         database.child("Quizzes").child(quizid).child("QuizQuestions").setValue(questionQuiz)

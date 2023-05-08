@@ -67,6 +67,12 @@ class CreateQuizFragment : Fragment(){
         }
 
         btn_next_create_quiz.setOnClickListener {
+            var numberTxtQuestion=edt_number_txt_q.text.toString()
+            if (numberTxtQuestion==""){
+                numberTxtQuestion="0"
+            }
+            val titleQuiz=edt_name_quiz_create.text.toString()
+
             val numberq=edt_total_number_q_create_quiz.text.toString()
             val date=getdateandtime()
             if (date!=null){
@@ -75,14 +81,16 @@ class CreateQuizFragment : Fragment(){
 
 
             }else {
-                if (edt_total_number_q_create_quiz.text.toString()!="") {
+                if (edt_total_number_q_create_quiz.text.toString()!=""&& edt_name_quiz_create.text.toString()!="") {
                     val action =
                         stTimeQuiz?.let { it1 ->
                             enTimeQuiz?.let { it2 ->
                                 CreateQuizFragmentDirections.actionCreateQuizFragmentToCreateQuestionFragment(
                                     numberq.toInt(),
                                     it1,
-                                    it2
+                                    it2,
+                                    titleQuiz,
+                                    numberTxtQuestion.toInt()
                                 )
                             }
                         }
