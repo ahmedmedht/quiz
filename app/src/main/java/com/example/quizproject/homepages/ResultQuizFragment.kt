@@ -65,7 +65,7 @@ class ResultQuizFragment : Fragment() {
     private fun uploadDataScore(resultQ: String, codeQuiz: String, userIdCreatedQuiz: String) {
         database.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(codeQuiz).child("UserFinishQuiz")
             .child(currentUser).setValue(resultQ)
-        database.child("user").child(currentUser).child("QuizJoin").child(codeQuiz).setValue(resultQ)
+
 
     }
 }

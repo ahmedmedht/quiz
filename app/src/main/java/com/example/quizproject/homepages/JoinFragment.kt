@@ -1,7 +1,6 @@
 package com.example.quizproject.homepages
 
 import android.os.Bundle
-import android.os.ProxyFileDescriptorCallback
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,13 +14,17 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 
 import com.example.quizproject.R
+import com.example.quizproject.model.ModelAnswer
 import com.example.quizproject.model.QuestionModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_join.*
 import java.util.concurrent.CountDownLatch
 import com.google.firebase.database.FirebaseDatabase as FirebaseDatabase
 
 class JoinFragment : Fragment() {
+    private val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    private var dataJoinUser: DatabaseReference=FirebaseDatabase.getInstance().getReference("user").child(currentUser)
 
     private lateinit var dref: DatabaseReference
     private val args:JoinFragmentArgs by navArgs()
@@ -35,7 +38,7 @@ class JoinFragment : Fragment() {
     private var quizQuestionMcq=ArrayList<QuestionModel>()
     private var quizQuestionText=ArrayList<String>()
 
-    private var getAnswerUser=ArrayList<String>()
+    private var getAnswerUser=ArrayList<ModelAnswer>()
 
 
     override fun onCreateView(
@@ -81,7 +84,7 @@ class JoinFragment : Fragment() {
 
         btn_next_quiz_join.setOnClickListener {
             if(edt_answer_join.isVisible){
-                getAnswerUser.add(edt_answer_join.text.toString())
+                getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
                 numberquestion+=1
                 if(quizQuestionText.size>numberquestion){
                     Log.d("check",quizQuestionText.size.toString())
@@ -102,7 +105,9 @@ class JoinFragment : Fragment() {
                 if (btnSelected != null) {
                     val correctAnswer = quizQuestionMcq[numberquestion].numberAnswer
                     numberquestion += 1
-                    if (correctAnswer.toString() == btnSelected.toString()) {
+                    getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),btnSelected.toString()))
+
+                        if (correctAnswer.toString() == btnSelected.toString()) {
                         result += 1
                     }
 
@@ -114,6 +119,7 @@ class JoinFragment : Fragment() {
                         btnSelected = null
                     } else {
                         Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
+                        uploadAnswersUser(result)
 
                         val action = JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(
                             result.toString(),
@@ -141,6 +147,12 @@ class JoinFragment : Fragment() {
         txt_answer4.setOnClickListener {
             selectAnswer(txt_answer4)
         }
+
+    }
+
+    private fun uploadAnswersUser(result: Int) {
+        dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("answers user").setValue(getAnswerUser)
+        dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("score").setValue(result)
 
     }
 
@@ -268,5 +280,7 @@ class JoinFragment : Fragment() {
 
 
 }
+
+
 
 
