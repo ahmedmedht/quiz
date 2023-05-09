@@ -193,8 +193,10 @@ class CreateQuestionFragment : Fragment() {
         if(questionTextArray.isEmpty()){1+1}
             else{
                 database.child("Quizzes").child(quizid).child("TextQuestions").setValue(questionTextArray)
+
             }
         database.child("Quizzes").child(quizid).child("StartTimeQuiz").setValue(startQuizTime)
+        database.child("Quizzes").child(quizid).child("QuizName").setValue(args.nameQuiz)
         database.child("Quizzes").child(quizid).child("EndTimeQuiz").setValue(endQuizTime)
         database.child("Quizzes").child(quizid).child("QuizQuestions").setValue(questionQuiz)
         database.child("Quizzes").child(quizid).child("NumberQuestion").setValue(numberQuestion)
