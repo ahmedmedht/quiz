@@ -63,7 +63,6 @@ class CreateQuizFragment : Fragment(){
         btn_cancle_create_quiz.setOnClickListener {
             navController.navigateUp()
 
-
         }
 
         btn_next_create_quiz.setOnClickListener {
@@ -102,6 +101,7 @@ class CreateQuizFragment : Fragment(){
             }else Toast.makeText(context,"Please enter all required",Toast.LENGTH_LONG).show()
 
         }
+
     }
 
     private fun getDataPicker(datap: TextView) {

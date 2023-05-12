@@ -163,10 +163,10 @@ class JoinFragment : Fragment() {
         val qeustion= quizQuestionMcq[numberquestion].question
         txt_question_join.text = qeustion
 
-        txt_answer1.text = quizQuestionMcq[numberquestion].arrayanswr?.get(0)
-        txt_answer2.text = quizQuestionMcq[numberquestion].arrayanswr?.get(1)
-        txt_answer3.text = quizQuestionMcq[numberquestion].arrayanswr?.get(2)
-        txt_answer4.text = quizQuestionMcq[numberquestion].arrayanswr?.get(3)
+        txt_answer1.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(0)
+        txt_answer2.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(1)
+        txt_answer3.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(2)
+        txt_answer4.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(3)
     }
 
     private fun showFirstQuestion() {
@@ -227,7 +227,7 @@ class JoinFragment : Fragment() {
 
                             n.child("arrayanswr").value
                             val numcorrectAnswer = n.child("numberAnswer").value.toString().toInt()
-                            quizQuestionMcq.add(QuestionModel(q, arrayAnswr, numcorrectAnswer))
+                            quizQuestionMcq.add(QuestionModel(q, arrayAnswr, numcorrectAnswer,false,""))
 
                             latch.countDown()
                         }

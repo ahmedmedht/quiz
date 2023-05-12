@@ -1,18 +1,24 @@
 package com.example.quizproject.homepages
 
+import android.app.Activity.RESULT_OK
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.MediaStore
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.quizproject.model.QuestionModel
 import com.example.quizproject.R
+import com.example.quizproject.model.QuestionTextAnswer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -27,10 +33,10 @@ class CreateQuestionFragment : Fragment() {
     private lateinit var addQuestion:ArrayList<QuestionModel>
     private lateinit var databaseuser: DatabaseReference
     private var strArray: List<Char>  = emptyList()
-    private lateinit var questionTextArray:ArrayList<String>
+    private lateinit var questionTextArray:ArrayList<QuestionTextAnswer>
     private val currentUser = FirebaseAuth.getInstance().currentUser
     private lateinit var btnWriteNow:RadioButton
-
+    private var strImg=""
 
 
     override fun onCreateView(
@@ -91,12 +97,21 @@ class CreateQuestionFragment : Fragment() {
         }
 
 
+
+
         btn_next_or_finish_question.setOnClickListener {
             if (txtEdit>0){
                 if (edt_question_quiz.text.toString()==""){
                     edt_question_quiz.error="Please Enter Your Question!"
                 }else{
-                    questionTextArray.add(edt_question_quiz.text.toString())
+                    var checkImg=false
+                    if (strImg!=""){
+                        checkImg=true
+                    }
+                    questionTextArray.add(QuestionTextAnswer(edt_question_quiz.text.toString(),checkImg,strImg))
+
+                    strImg=""
+                    layout_image_put.isVisible=false
                     txtEdit-=1
                 }
                 if (txtEdit==0){
@@ -108,6 +123,10 @@ class CreateQuestionFragment : Fragment() {
                 if (btn_next_or_finish_question.text.toString().equals("next")) {
                     numberquestion -= 1
                     addDatatoArray()
+
+                    strImg=""
+                    layout_image_put.isVisible=false
+
                     edt_question_quiz.setText("")
                     radioButton.text = ""
                     radioButton2.text = ""
@@ -123,7 +142,7 @@ class CreateQuestionFragment : Fragment() {
                     numberquestion -= 1
                     addDatatoArray()
                     getrandomarray()
-                    var randomcode = strArray.random().toString() + strArray.random()
+                    val randomcode = strArray.random().toString() + strArray.random()
                         .toString() + strArray.random().toString() + strArray.random()
                         .toString() + strArray.random().toString()
 
@@ -151,6 +170,20 @@ class CreateQuestionFragment : Fragment() {
             }
         }
 
+        get_img.setOnClickListener {
+
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+
+            startActivityForResult(intent,100);
+
+            layout_image_put.isVisible=true
+
+        }
+        img_remove_image_edit.setOnClickListener {
+            strImg=""
+            layout_image_put.isVisible=false
+        }
+
     }
 
 
@@ -158,7 +191,18 @@ class CreateQuestionFragment : Fragment() {
         edt_enter_answer.isVisible=true
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
 
+        if (requestCode == 100 && resultCode == RESULT_OK)
+        {
+            val uri: Uri? = data?.data
+            strImg=uri.toString()
+            img_question_edit.setImageURI(strImg.toUri())
+
+
+        }
+    }
     private fun addDatatoArray() {
         val arryAnswer: ArrayList<String> = ArrayList()
         arryAnswer.add(radioButton.text.toString())
@@ -167,8 +211,10 @@ class CreateQuestionFragment : Fragment() {
         arryAnswer.add(radioButton4.text.toString())
 
         val answerNumber=checkedradio()
+        var cheackImg=false
+        if (strImg!="") cheackImg=true
 
-        addQuestion.add(QuestionModel(edt_question_quiz.text.toString(),arryAnswer,answerNumber))
+        addQuestion.add(QuestionModel(edt_question_quiz.text.toString(),arryAnswer,answerNumber,cheackImg,strImg))
     }
 
     private fun checkedradio(): Int {
