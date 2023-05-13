@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -16,6 +17,7 @@ import androidx.navigation.fragment.navArgs
 import com.example.quizproject.R
 import com.example.quizproject.model.ModelAnswer
 import com.example.quizproject.model.QuestionModel
+import com.example.quizproject.model.QuestionTextAnswer
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_join.*
@@ -36,7 +38,7 @@ class JoinFragment : Fragment() {
     private var btnSelected: Int? =null
 
     private var quizQuestionMcq=ArrayList<QuestionModel>()
-    private var quizQuestionText=ArrayList<String>()
+    private var quizQuestionText=ArrayList<QuestionTextAnswer>()
 
     private var getAnswerUser=ArrayList<ModelAnswer>()
 
@@ -87,9 +89,7 @@ class JoinFragment : Fragment() {
                 getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
                 numberquestion+=1
                 if(quizQuestionText.size>numberquestion){
-                    Log.d("check",quizQuestionText.size.toString())
-                    Log.d("check2",numberquestion.toString())
-
+                    img_question_join.isVisible=false
 
                     showFirstQuestion()
                     edt_answer_join.setText("")
@@ -97,6 +97,8 @@ class JoinFragment : Fragment() {
                 else{
                     edt_answer_join.isVisible=false
                     layout_answer_join.isVisible=true
+                    img_question_join.isVisible=false
+
                     numberquestion=0
                     showFirstQuestionMcq()
                 }
@@ -112,6 +114,7 @@ class JoinFragment : Fragment() {
                     }
 
                     if (quizQuestionMcq.size>numberquestion) {
+                        img_question_join.isVisible=false
 
                         setColorDefult()
                         showFirstQuestionMcq()
@@ -167,14 +170,28 @@ class JoinFragment : Fragment() {
         txt_answer2.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(1)
         txt_answer3.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(2)
         txt_answer4.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(3)
+
+        val checkQ=quizQuestionMcq[numberquestion].checkImg
+        if (checkQ){
+            img_question_join.setImageURI(quizQuestionMcq[numberquestion].imgQuestion.toUri())
+            img_question_join.isVisible=true
+        }
     }
 
     private fun showFirstQuestion() {
         Log.d("check",quizQuestionText.size.toString())
         Log.d("check2",numberquestion.toString())
         edt_answer_join.isVisible=true
-        txt_question_join.text= quizQuestionText[numberquestion]
+        txt_question_join.text= quizQuestionText[numberquestion].questionEdit
+        val checkQ=quizQuestionText[numberquestion].checkImg
+        if (checkQ){
+            img_question_join.setImageURI(quizQuestionText[numberquestion].imgQuestion.toUri())
+            Log.d("imageQ",quizQuestionText[numberquestion].imgQuestion)
+
+            img_question_join.isVisible=true
+        }
     }
+
 
 
     private fun setColorDefult() {
@@ -220,14 +237,18 @@ class JoinFragment : Fragment() {
                         for (n in it.children) {
                             val q = n.child("question").value.toString()
                             val arrayAnswr = ArrayList<String>()
-                            arrayAnswr.add(n.child("arrayanswr").child("0").value.toString())
-                            arrayAnswr.add(n.child("arrayanswr").child("1").value.toString())
-                            arrayAnswr.add(n.child("arrayanswr").child("2").value.toString())
-                            arrayAnswr.add(n.child("arrayanswr").child("3").value.toString())
 
-                            n.child("arrayanswr").value
+                            arrayAnswr.add(n.child("arrayAnswer").child("0").value.toString())
+                            arrayAnswr.add(n.child("arrayAnswer").child("1").value.toString())
+                            arrayAnswr.add(n.child("arrayAnswer").child("2").value.toString())
+                            arrayAnswr.add(n.child("arrayAnswer").child("3").value.toString())
+
                             val numcorrectAnswer = n.child("numberAnswer").value.toString().toInt()
-                            quizQuestionMcq.add(QuestionModel(q, arrayAnswr, numcorrectAnswer,false,""))
+                            val imgQ=n.child("imgQuestion").value.toString()
+                            val checkImage=n.child("checkImg").value.toString().toBoolean()
+
+
+                            quizQuestionMcq.add(QuestionModel(q, arrayAnswr, numcorrectAnswer,checkImage,imgQ))
 
                             latch.countDown()
                         }
@@ -260,8 +281,11 @@ class JoinFragment : Fragment() {
                     if (snapshot.exists()) {
                         for (n in snapshot.children) {
                             Log.d("TextQ", "run Text Question")
+                            val editQ=n.child("questionEdit").value.toString()
+                            val checkImg=n.child("checkImg").value.toString().toBoolean()
+                            val imgQ=n.child("imgQuestion").value.toString()
 
-                            quizQuestionText.add(n.value.toString())
+                            quizQuestionText.add(QuestionTextAnswer(editQ,checkImg,imgQ))
                         }
 
                     } else {
