@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.GravityCompat
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -47,6 +48,12 @@ class HomeFragment : Fragment() {
         btn_join_home.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_joinCodeFragment)
         }
+
+        img_menu_drawer.setOnClickListener {
+            drawer_layout.openDrawer(GravityCompat.START)
+        }
+
+
 
 
 
