@@ -1,7 +1,9 @@
 package com.example.quizproject.homepages
 
 import android.app.Activity.RESULT_OK
+import android.content.ContentResolver
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -25,6 +27,13 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_create_question.*
+
+import android.content.ContentResolver.*
+import android.graphics.BitmapFactory
+import android.util.Base64
+import java.io.ByteArrayOutputStream
+import java.util.*
+
 
 
 class CreateQuestionFragment : Fragment() {
@@ -197,13 +206,27 @@ class CreateQuestionFragment : Fragment() {
 
         if (requestCode == 100 && resultCode == RESULT_OK)
         {
+            val contentResolver: ContentResolver = requireContext().contentResolver
             val uri: Uri? = data?.data
-            strImg=uri.toString()
-            Log.d("strImg",strImg)
-            img_question_edit.setImageURI(strImg.toUri())
+            val bitmap: Bitmap = MediaStore.Images.Media.getBitmap(contentResolver ,uri)
+
+            strImg=convertBitmapToString(bitmap)
+
+            img_question_edit.setImageBitmap(convertStringToBitmap(strImg))
 
 
         }
+    }
+
+    private fun convertBitmapToString(bitmap: Bitmap): String {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream)
+        val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
+        return Base64.encodeToString(byteArray, Base64.DEFAULT)
+    }
+    fun convertStringToBitmap(imageString: String): Bitmap? {
+        val decodedString: ByteArray = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
     private fun addDatatoArray() {
         val arryAnswer: ArrayList<String> = ArrayList()

@@ -22,7 +22,7 @@ import java.util.*
 class CreateQuizFragment : Fragment(){
     private var stTimeQuiz:Long?=null
     private var enTimeQuiz:Long?=null
-
+    private var randomQ=false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,13 +51,8 @@ class CreateQuizFragment : Fragment(){
             opentimepicker(time_picker_end)
         }
 
-        check_random_question.setOnClickListener {
-            if (check_random_question.isChecked) {
-                layout_invisible_number_question.isVisible = true
-            } else {
-                layout_invisible_number_question.isVisible = false
-                Toast.makeText(context, "nice", Toast.LENGTH_LONG).show()
-            }
+        check_random_question.setOnCheckedChangeListener { _, isChecked ->
+            randomQ = isChecked
         }
 
         btn_cancle_create_quiz.setOnClickListener {
@@ -89,7 +84,8 @@ class CreateQuizFragment : Fragment(){
                                     it1,
                                     it2,
                                     titleQuiz,
-                                    numberTxtQuestion.toInt()
+                                    numberTxtQuestion.toInt(),
+                                    randomQ
                                 )
                             }
                         }

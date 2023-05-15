@@ -1,6 +1,9 @@
 package com.example.quizproject.homepages
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Base64
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -173,9 +176,13 @@ class JoinFragment : Fragment() {
 
         val checkQ=quizQuestionMcq[numberquestion].checkImg
         if (checkQ){
-            img_question_join.setImageURI(quizQuestionMcq[numberquestion].imgQuestion.toUri())
+            img_question_join.setImageBitmap(convertStringToBitmap(quizQuestionMcq[numberquestion].imgQuestion))
             img_question_join.isVisible=true
         }
+    }
+    fun convertStringToBitmap(imageString: String): Bitmap? {
+        val decodedString: ByteArray = Base64.decode(imageString, Base64.DEFAULT)
+        return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
 
     private fun showFirstQuestion() {
@@ -185,7 +192,7 @@ class JoinFragment : Fragment() {
         txt_question_join.text= quizQuestionText[numberquestion].questionEdit
         val checkQ=quizQuestionText[numberquestion].checkImg
         if (checkQ){
-            img_question_join.setImageURI(quizQuestionText[numberquestion].imgQuestion.toUri())
+            img_question_join.setImageBitmap(convertStringToBitmap(quizQuestionText[numberquestion].imgQuestion))
             Log.d("imageQ",quizQuestionText[numberquestion].imgQuestion)
 
             img_question_join.isVisible=true

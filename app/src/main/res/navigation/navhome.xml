@@ -17,12 +17,6 @@
         <action
             android:id="@+id/action_homeFragment_to_joinCodeFragment"
             app:destination="@id/joinCodeFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_quizzesCreatedFragment2"
-            app:destination="@id/quizzesCreatedFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_quizzesJoinedFragment2"
-            app:destination="@id/quizzesJoinedFragment2" />
 
     </fragment>
     <fragment
@@ -58,6 +52,9 @@
             app:argType="string" />
         <argument android:name="num_txt_q"
             app:argType="integer" />
+        <argument
+            android:name="random_q"
+            app:argType="boolean" />
 
     </fragment>
     <fragment
@@ -108,14 +105,4 @@
             android:name="codeQuiz"
             app:argType="string" />
     </fragment>
-    <fragment
-        android:id="@+id/quizzesCreatedFragment"
-        android:name="com.example.quizproject.menupages.QuizzesCreatedFragment"
-        android:label="fragment_quizzes_created"
-        tools:layout="@layout/fragment_quizzes_created" />
-    <fragment
-        android:id="@+id/quizzesJoinedFragment2"
-        android:name="com.example.quizproject.menupages.QuizzesJoinedFragment"
-        android:label="fragment_quizzes_joined"
-        tools:layout="@layout/fragment_quizzes_joined" />
 </navigation>
