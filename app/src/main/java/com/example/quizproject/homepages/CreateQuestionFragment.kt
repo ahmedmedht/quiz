@@ -31,6 +31,7 @@ import kotlinx.android.synthetic.main.fragment_create_question.*
 import android.content.ContentResolver.*
 import android.graphics.BitmapFactory
 import android.util.Base64
+import android.widget.PopupMenu
 import java.io.ByteArrayOutputStream
 import java.util.*
 
@@ -66,11 +67,10 @@ class CreateQuestionFragment : Fragment() {
         val startQuizTime=args.timeStartQuiz
         val endQuizTime=args.timeEndQuiz
         val totalNumber=args.numTxtQ
-//        for (n in 0..totalNumber){
-//            btn_next_or_finish_question.setOnClickListener {
-//
-//            }
-//        }
+        if(args.randomQ){
+            txt_menu.isVisible=false
+        }
+
         if (totalNumber==0){
             layout_add_question_question.isVisible=true
         }
@@ -194,12 +194,44 @@ class CreateQuestionFragment : Fragment() {
             layout_image_put.isVisible=false
         }
 
+        txt_menu.setOnClickListener {
+            val popupMenu = PopupMenu(context, txt_menu)
+            popupMenu.menuInflater.inflate(R.menu.menu_item_main, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                txt_menu.text=menuItem.toString()
+                true
+            }
+
+            popupMenu.show()
+        }
+        txt_menu2.setOnClickListener {
+            val popupMenu = PopupMenu(context, txt_menu)
+            popupMenu.menuInflater.inflate(R.menu.menu_item_easy, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                txt_menu.text=menuItem.toString()
+                true
+            }
+
+            popupMenu.show()
+        }
+        txt_menu3.setOnClickListener {
+            val popupMenu = PopupMenu(context, txt_menu)
+            popupMenu.menuInflater.inflate(R.menu.menu_item_level, popupMenu.menu)
+
+            popupMenu.setOnMenuItemClickListener { menuItem ->
+                txt_menu.text=menuItem.toString()
+                true
+            }
+
+            popupMenu.show()
+        }
+
     }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-    private fun writeAnswer() {
-        edt_enter_answer.isVisible=true
-    }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

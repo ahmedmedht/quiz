@@ -21,191 +21,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <LinearLayout
-        android:id="@+id/layout_question_create"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="24dp"
-        android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
-
-
-
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_image_put"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/background_image"
-            android:visibility="gone">
-
-
-            <ImageView
-                android:id="@+id/img_question_edit"
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:layout_margin="4dp"
-                android:scaleType="centerInside"
-                android:padding="4dp"
-                android:maxHeight="200dp"
-
-                android:background="@null"
-                android:layout_marginBottom="16dp"
-                tools:srcCompat="@tools:sample/avatars"
-                app:layout_constraintTop_toTopOf="parent"
-                />
-            <ImageButton
-                android:id="@+id/img_remove_image_edit"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@null"
-                android:src="@drawable/baseline_remove_circle_outline_24"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <EditText
-
-                android:id="@+id/edt_question_quiz"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/edt_question"
-                android:hint="Enter Question"
-                android:inputType="textPersonName"/>
-
-            <ImageView
-                android:id="@+id/get_img"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                app:srcCompat="@drawable/baseline_photo_camera_24" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-
-    <TextView
-        android:id="@+id/textView11"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="Answer"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/layout_question_create" />
-
-
-    <LinearLayout
-        android:id="@+id/layout_add_question_question"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_margin="24dp"
-        android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView11"
-
-        >
-
-        <RadioGroup
-            android:id="@+id/radio_group_btn_enter_answer"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-                <RadioButton
-                    android:id="@+id/radioButton"
-                    android:layout_width="match_parent"
-                    android:layout_marginBottom="5dp"
-                    android:layout_height="wrap_content"
-                    android:hint="Answer 1"
-                    android:padding="3dp"
-                    android:background="@drawable/background_edt_answer"
-                    />
-
-
-                <RadioButton
-                    android:id="@+id/radioButton2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:hint="Answer 1"
-                    android:padding="3dp"
-                    android:background="@drawable/background_edt_answer"
-                    />
-
-
-                <RadioButton
-                    android:id="@+id/radioButton3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-
-                    android:hint="Answer 1"
-                    android:padding="3dp"
-                    android:background="@drawable/background_edt_answer"
-                    />
-
-
-                <RadioButton
-                    android:id="@+id/radioButton4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Answer 1"
-                    android:padding="3dp"
-                    android:background="@drawable/background_edt_answer"
-                    />
-
-
-        </RadioGroup>
-
-        <LinearLayout
-            android:id="@+id/layout_answer_enter"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:visibility="invisible">
-        <EditText
-            android:id="@+id/edt_enter_answer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/background_edt_answer"
-            android:padding="5dp"
-            android:hint="Enter Answer"
-            android:inputType="textPersonName"
-            />
-
-            <ImageButton
-                android:id="@+id/img_btn_change_txt_answer"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
-                android:layout_weight="1"
-                android:src="@drawable/baseline_send_24" />
-
-        </LinearLayout>
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/btn_back_question"
@@ -229,6 +44,257 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next_or_finish_question"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+            >
+
+            <LinearLayout
+                android:id="@+id/layout_question_create"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="24dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/layout_image_put"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/background_image"
+                    android:visibility="gone">
+
+
+                    <ImageView
+                        android:id="@+id/img_question_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:layout_margin="4dp"
+                        android:scaleType="centerInside"
+                        android:padding="4dp"
+                        android:maxHeight="200dp"
+
+                        android:background="@null"
+                        android:layout_marginBottom="16dp"
+                        tools:srcCompat="@tools:sample/avatars"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+                    <ImageButton
+                        android:id="@+id/img_remove_image_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:background="@null"
+                        android:src="@drawable/baseline_remove_circle_outline_24"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <EditText
+
+                        android:id="@+id/edt_question_quiz"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/edt_question"
+                        android:hint="Enter Question"
+                        android:inputType="textPersonName"/>
+
+                    <ImageView
+                        android:id="@+id/get_img"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="8dp"
+                        app:srcCompat="@drawable/baseline_photo_camera_24" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:text="Answer"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
+
+            <LinearLayout
+                android:id="@+id/layout_add_question_question"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="24dp"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+
+                >
+
+                <RadioGroup
+                    android:id="@+id/radio_group_btn_enter_answer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RadioButton
+                        android:id="@+id/radioButton"
+                        android:layout_width="match_parent"
+                        android:layout_marginBottom="5dp"
+                        android:layout_height="wrap_content"
+                        android:hint="Answer 1"
+                        android:padding="3dp"
+                        android:background="@drawable/background_edt_answer"
+                        />
+
+
+                    <RadioButton
+                        android:id="@+id/radioButton2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:hint="Answer 1"
+                        android:padding="3dp"
+                        android:background="@drawable/background_edt_answer"
+                        />
+
+
+                    <RadioButton
+                        android:id="@+id/radioButton3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+
+                        android:hint="Answer 1"
+                        android:padding="3dp"
+                        android:background="@drawable/background_edt_answer"
+                        />
+
+
+                    <RadioButton
+                        android:id="@+id/radioButton4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="16dp"
+                        android:hint="Answer 1"
+                        android:padding="3dp"
+                        android:background="@drawable/background_edt_answer"
+                        />
+
+
+                </RadioGroup>
+
+                <LinearLayout
+                    android:id="@+id/layout_answer_enter"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:visibility="invisible">
+                    <EditText
+                        android:id="@+id/edt_enter_answer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/background_edt_answer"
+                        android:padding="5dp"
+                        android:hint="Enter Answer"
+                        android:inputType="textPersonName"
+                        />
+
+                    <ImageButton
+                        android:id="@+id/img_btn_change_txt_answer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/baseline_send_24" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_question_create">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:padding="5dp"
+                    android:text="type: " />
+
+                <TextView
+                    android:id="@+id/txt_menu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_text_select"
+                    android:padding="5dp"
+                    android:text="Main" />
+
+                <TextView
+                    android:id="@+id/txt_menu2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_text_select"
+                    android:padding="5dp"
+                    android:text="Easy" />
+
+                <TextView
+                    android:id="@+id/txt_menu3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/background_text_select"
+                    android:padding="5dp"
+                    android:text="1" />
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
