@@ -37,10 +37,6 @@ class HomeFragment : Fragment() {
         val navController= Navigation.findNavController(view)
 
         ref = FirebaseDatabase.getInstance().getReference("user")
-        val nameLiveData = getNameFromFirebase(navController,currentUser)
-        nameLiveData.observe(viewLifecycleOwner) { name ->
-            user_name_home.text = name
-        }
 
         btn_create_home.setOnClickListener {
             navController.navigate(R.id.action_homeFragment_to_createQuizFragment)

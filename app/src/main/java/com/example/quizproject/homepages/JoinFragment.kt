@@ -19,8 +19,10 @@ import androidx.navigation.fragment.navArgs
 
 import com.example.quizproject.R
 import com.example.quizproject.model.ModelAnswer
+import com.example.quizproject.model.ModelMainQuestion
 import com.example.quizproject.model.QuestionModel
 import com.example.quizproject.model.QuestionTextAnswer
+import com.example.quizproject.model.RandomFormat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_join.*
@@ -41,11 +43,16 @@ class JoinFragment : Fragment() {
     private var btnSelected: Int? =null
 
     private var quizQuestionMcq=ArrayList<QuestionModel>()
-    private var quizQuestionText=ArrayList<QuestionTextAnswer>()
 
     private var getAnswerUser=ArrayList<ModelAnswer>()
 
+    //////////////////////////////////////JOINRandom
+    private var allQuestionMain:ArrayList<ModelMainQuestion> =ArrayList()
+    private var allQuestionRandom:ArrayList<ModelMainQuestion> =ArrayList()
 
+    private var templateRandomQuestion:ArrayList<RandomFormat> = ArrayList()
+    private var questionRandomShow:ArrayList<String> =ArrayList()
+    private var questionAllShow:ArrayList<String> =ArrayList()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -54,10 +61,11 @@ class JoinFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_join, container, false)
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
-        var checkTextQ=false
         val getCodeQuizJoin=args.getCodeQuiz
 
         dref= FirebaseDatabase.getInstance().getReference("QuizApp")
@@ -66,21 +74,34 @@ class JoinFragment : Fragment() {
         options.add(1, txt_answer2)
         options.add(2, txt_answer3)
         options.add(3, txt_answer4)
-        checkTextQuestion(getCodeQuizJoin)
-        getDataFromFirebase(getCodeQuizJoin) {
+
+        getTemplate(getCodeQuizJoin){
             if (it){
-
-
-                if (quizQuestionText.isEmpty()) Log.d("TextQ1", "no Text Question")
-                else checkTextQ=true
-
-                if (checkTextQ){
-                    showFirstQuestion()
-                }else{
-                    showFirstQuestionMcq()
+                if (templateRandomQuestion.isNotEmpty()){
+                    questionRandomSet(templateRandomQuestion,allQuestionRandom)
+                    questionRandomShow.shuffle()
                 }
-            }else{
-                Toast.makeText(context, "Error", Toast.LENGTH_LONG).show()
+                Log.d("allQuestionMain1",allQuestionMain.toString())
+
+                if (allQuestionMain.isNotEmpty()){
+                    Log.d("allQuestionMain",allQuestionMain.toString())
+                    for (i in allQuestionMain){
+                        questionAllShow.add(i.numberQuestion)
+                    }
+                }
+                if (questionRandomShow.isNotEmpty()){
+                    Log.d("allQuestionMain2",questionRandomShow.toString())
+                    Log.d("allQuestionRandom",questionRandomShow.toString())
+
+                    for (i in questionRandomShow){
+                        questionAllShow.add(i)
+                    }
+                }
+            }
+        }
+        getDataFromFirebase(getCodeQuizJoin) {
+            if (it) {
+                showFirstQuestionMcq()
             }
         }
 
@@ -88,56 +109,46 @@ class JoinFragment : Fragment() {
 
 
         btn_next_quiz_join.setOnClickListener {
-            if(edt_answer_join.isVisible){
-                getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
-                numberquestion+=1
-                if(quizQuestionText.size>numberquestion){
-                    img_question_join.isVisible=false
+            if (btn_next_quiz_join.text.toString()=="finish"){
+                Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
+                uploadAnswersUser(result)
 
-                    showFirstQuestion()
+                val action = JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(
+                    result.toString(),
+                    args.getCodeQuiz
+                )
+                navController.navigate(action)
+            }else{
+                if(edt_answer_join.isVisible){
+                    getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
+                    numberquestion+=1
                     edt_answer_join.setText("")
-                }
-                else{
-                    edt_answer_join.isVisible=false
-                    layout_answer_join.isVisible=true
-                    img_question_join.isVisible=false
-
-                    numberquestion=0
                     showFirstQuestionMcq()
-                }
-            }
-            else {
-                if (btnSelected != null) {
-                    val correctAnswer = quizQuestionMcq[numberquestion].numberAnswer
-                    numberquestion += 1
-                    getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),btnSelected.toString()))
+                }else if (layout_answer_join.isVisible){
+                    if (btnSelected != null) {
+                        val correctAnswer = quizQuestionMcq[questionAllShow[numberquestion].toInt()].numberAnswer
+                        numberquestion += 1
+                        getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),btnSelected.toString()))
 
                         if (correctAnswer.toString() == btnSelected.toString()) {
-                        result += 1
-                    }
+                            result += 1
+                        }
 
-                    if (quizQuestionMcq.size>numberquestion) {
-                        img_question_join.isVisible=false
+                            setColorDefult()
+                            showFirstQuestionMcq()
+                            btnSelected = null
 
-                        setColorDefult()
-                        showFirstQuestionMcq()
-
-                        btnSelected = null
                     } else {
-                        Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
-                        uploadAnswersUser(result)
-
-                        val action = JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(
-                            result.toString(),
-                            args.getCodeQuiz
-                        )
-                        navController.navigate(action)
+                        Toast.makeText(context, "please select answer", Toast.LENGTH_LONG).show()
+                        txt_question_join.error = "please select answer"
                     }
-                } else {
-                    Toast.makeText(context, "please select answer", Toast.LENGTH_LONG).show()
-                    txt_question_join.error = "please select answer"
                 }
+
             }
+
+
+
+
 
         }
         txt_answer1.setOnClickListener {
@@ -156,48 +167,68 @@ class JoinFragment : Fragment() {
 
     }
 
+    private fun questionRandomSet(templateRandomQuestions: ArrayList<RandomFormat>, allQuestionRandom:ArrayList<ModelMainQuestion>?) {
+        templateRandomQuestions .forEach { temp->
+            val arrayQuestionSelect:ArrayList<String> =ArrayList()
+            for (tempType in temp.arraySelectTypeQuestion!!){
+                for (allQ in allQuestionRandom!!){
+                    if (allQ.questionClassification==tempType){
+                        arrayQuestionSelect.add(allQ.numberQuestion)
+                    }
+                }
+            }
+            arrayQuestionSelect.shuffle()
+            for (i in 0 until temp.totalQ!!){
+                questionRandomShow.add(arrayQuestionSelect[i])
+            }
+        }
+    }
+
     private fun uploadAnswersUser(result: Int) {
         dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("answers user").setValue(getAnswerUser)
         dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("score").setValue(result)
 
     }
 
-    private fun showFirstQuestionMcq() {
-        layout_answer_join.isVisible=true
-        Log.d("dataQuiz",quizQuestionMcq.toString())
-
-        val qeustion= quizQuestionMcq[numberquestion].question
-        txt_question_join.text = qeustion
-
-        txt_answer1.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(0)
-        txt_answer2.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(1)
-        txt_answer3.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(2)
-        txt_answer4.text = quizQuestionMcq[numberquestion].arrayAnswer?.get(3)
-
-        val checkQ=quizQuestionMcq[numberquestion].checkImg
-        if (checkQ){
-            img_question_join.setImageBitmap(convertStringToBitmap(quizQuestionMcq[numberquestion].imgQuestion))
-            img_question_join.isVisible=true
-        }
-    }
     fun convertStringToBitmap(imageString: String): Bitmap? {
         val decodedString: ByteArray = Base64.decode(imageString, Base64.DEFAULT)
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.size)
     }
+    private fun showFirstQuestionMcq() {
 
-    private fun showFirstQuestion() {
-        Log.d("check",quizQuestionText.size.toString())
-        Log.d("check2",numberquestion.toString())
-        edt_answer_join.isVisible=true
-        txt_question_join.text= quizQuestionText[numberquestion].questionEdit
-        val checkQ=quizQuestionText[numberquestion].checkImg
+        Log.d("dataQuiz",questionAllShow.toString())
+        val num=questionAllShow[numberquestion].toInt()
+        val qeustion= quizQuestionMcq[num].question
+        txt_question_join.text = qeustion
+        img_question_join.isVisible=false
+        txt_answer1.text = quizQuestionMcq[num].arrayAnswer?.get(0)
+        txt_answer2.text = quizQuestionMcq[num].arrayAnswer?.get(1)
+        txt_answer3.text = quizQuestionMcq[num].arrayAnswer?.get(2)
+        txt_answer4.text = quizQuestionMcq[num].arrayAnswer?.get(3)
+
+        val checkQ=quizQuestionMcq[num].checkImg
         if (checkQ){
-            img_question_join.setImageBitmap(convertStringToBitmap(quizQuestionText[numberquestion].imgQuestion))
-            Log.d("imageQ",quizQuestionText[numberquestion].imgQuestion)
-
+            img_question_join.setImageBitmap(convertStringToBitmap(quizQuestionMcq[num].imgQuestion))
             img_question_join.isVisible=true
         }
+        val checkMcq=quizQuestionMcq[num].numberAnswer
+        if (checkMcq != null) {
+            if (checkMcq>0){
+                edt_answer_join.isVisible=false
+                layout_answer_join.isVisible=true
+            }else{
+                edt_answer_join.isVisible=true
+                layout_answer_join.isVisible=false
+            }
+
+        }
+        if(questionAllShow.size==numberquestion+1){
+            btn_next_quiz_join.text = "finish"
+        }
     }
+
+
+
 
 
 
@@ -229,16 +260,71 @@ class JoinFragment : Fragment() {
         }
     }
 
+    private fun getTemplate(
+        codeQuizJoin: String,
+        callback: (Boolean) -> Unit
+    ) {
+        dref.child("Quizzes").child(codeQuizJoin).child("TypeQuestions").get().addOnSuccessListener {
+            val typeQuestionsIt = it.value as? Map<String, Any>
 
+            if (typeQuestionsIt!=null){
+                val hasMain=typeQuestionsIt.containsKey("Main")
+                val hasRandom=typeQuestionsIt.containsKey("Random")
+                val hasTemplate=typeQuestionsIt.containsKey("TemplateQuiz")
+                if (hasMain){
+                    val getMainQuestionIt=it.child("Main").children
+                    for (i in getMainQuestionIt){
+                        val numberQuestionMain=i.child("numberQuestion").value.toString()
+                        val typeQuestionMain=i.child("questionClassification").value.toString()
+                        Log.d("itemMain","n=$numberQuestionMain / t=$typeQuestionMain")
+                        allQuestionMain.add(ModelMainQuestion(numberQuestionMain,typeQuestionMain))
+                    }
+                }
+                if (hasRandom){
+                    val getRandomQuestionIt=it.child("Random").children
+                    for (i in getRandomQuestionIt){
+                        val numberQuestionRandom=i.child("numberQuestion").value.toString()
+                        val typeQuestionRandom=i.child("questionClassification").value.toString()
+                        Log.d("itemMain","n=$numberQuestionRandom / t=$typeQuestionRandom")
+                        allQuestionRandom.add(ModelMainQuestion(numberQuestionRandom,typeQuestionRandom))
+                    }
+                }
+                if (hasTemplate){
+                    val templateRandomIt=it.child("TemplateQuiz").value as? Map<String, Any>
+                    val hasRandomFormat= templateRandomIt?.containsKey("RandomFormat")
+                    if (hasRandomFormat == true){
+                        val formatRandomIt=it.child("TemplateQuiz").child("RandomFormat").children
+                        for (i in formatRandomIt){
+                            val arrayTypesQuestions = ArrayList<String>()
+                            for (i2 in i.child("arraySelectTypeQuestion").children){
+                                arrayTypesQuestions.add(i2.value.toString())
+                            }
+                            val totalQuestions=i.child("totalQ").value.toString()
+                            templateRandomQuestion.add(RandomFormat(arrayTypesQuestions,totalQuestions.toInt()))
+                        }
+                        //templateRandomQuestion=it.child("TemplateQuiz").child("RandomFormat").value as ArrayList<RandomFormat>
+                    }
+                }
+
+
+                callback(true)
+            }else{
+                Toast.makeText(context,"Error,Please try join again!",Toast.LENGTH_SHORT).show()
+                callback(false)
+            }
+        }.addOnFailureListener {
+            Toast.makeText(context,"Error,Please try join again!",Toast.LENGTH_SHORT).show()
+            callback(false)
+        }
+    }
     private fun getDataFromFirebase(
         getCodeQuizJoin: String,
         callback: (Boolean) ->Unit
     ) {
 
             dref.child("Quizzes").child(getCodeQuizJoin).child("QuizQuestions").get().addOnSuccessListener {
-            Log.d("questionsMcqIt", quizQuestionMcq.toString())
             if (it.exists()){
-                        Log.d("questionsMcq", quizQuestionMcq.toString())
+
                         val latch = CountDownLatch(it.childrenCount.toInt())
 
                         for (n in it.children) {
@@ -281,33 +367,9 @@ class JoinFragment : Fragment() {
     }
 
 
-    private fun checkTextQuestion(codeQuizJoin: String) {
-        dref.child("Quizzes").child(codeQuizJoin).child("TextQuestions")
-            .addListenerForSingleValueEvent(object : ValueEventListener {
-                override fun onDataChange(snapshot: DataSnapshot) {
-                    if (snapshot.exists()) {
-                        for (n in snapshot.children) {
-                            Log.d("TextQ", "run Text Question")
-                            val editQ=n.child("questionEdit").value.toString()
-                            val checkImg=n.child("checkImg").value.toString().toBoolean()
-                            val imgQ=n.child("imgQuestion").value.toString()
 
-                            quizQuestionText.add(QuestionTextAnswer(editQ,checkImg,imgQ))
-                        }
+/////////////////////////////////////////////////////////////////////
 
-                    } else {
-                        Log.d("TextQ", "no Text Question")
-
-                    }
-                }
-
-                override fun onCancelled(error: DatabaseError) {
-                    Log.d("TextQ", "error Text Question")
-
-                    Toast.makeText(context, "Failed to read value.", Toast.LENGTH_LONG).show()
-                }
-            })
-    }
 
 
 }

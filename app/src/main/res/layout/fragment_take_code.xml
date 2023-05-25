@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/textcolordefult"
+    android:background="@color/background"
     tools:context=".homepages.TakeCodeFragment">
 
 
@@ -14,6 +14,7 @@
         android:layout_height="wrap_content"
         android:text="Text"
         android:textSize="24sp"
+        android:textColor="@color/textcolordefult"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,6 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:text="go home"
+        android:background="@drawable/background_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -34,6 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/baseline_content_copy_24"
+        android:background="@null"
         app:layout_constraintStart_toEndOf="@+id/txt_code_quiz"
         app:layout_constraintTop_toBottomOf="@+id/txt_code_quiz" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".homepages.CreateQuestionFragment"
-    android:background="@color/textcolordefult">
+    android:background="@color/background">
 
 
     <TextView
@@ -17,6 +17,7 @@
         android:nestedScrollingEnabled="false"
         android:singleLine="false"
         android:text="Create Quiz"
+        android:textColor="@color/textcolordefult"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -143,6 +144,7 @@
                 android:layout_marginStart="24dp"
                 android:layout_marginTop="8dp"
                 android:text="Answer"
+                android:textColor="@color/textcolordefult"
                 android:textSize="16sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
@@ -219,10 +221,11 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center"
-                    android:visibility="invisible">
+                    android:visibility="invisible"
+                    >
                     <EditText
                         android:id="@+id/edt_enter_answer"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/background_edt_answer"
@@ -235,9 +238,12 @@
                         android:id="@+id/img_btn_change_txt_answer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:padding="4dp"
                         android:layout_marginLeft="8dp"
-                        android:layout_weight="1"
-                        android:src="@drawable/baseline_send_24" />
+                        android:layout_marginStart="4dp"
+                        android:src="@drawable/baseline_send_24"
+                        android:background="@null"
+                        />
 
                 </LinearLayout>
 
@@ -262,6 +268,7 @@
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
                     android:padding="5dp"
+                    android:textColor="@color/textcolordefult"
                     android:text="type: " />
 
                 <TextView
@@ -282,7 +289,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/background_text_select"
                     android:padding="5dp"
-                    android:text="Easy" />
+                    android:text="none" />
 
                 <TextView
                     android:id="@+id/txt_menu3"
@@ -292,7 +299,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/background_text_select"
                     android:padding="5dp"
-                    android:text="1" />
+                    android:text="none" />
             </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

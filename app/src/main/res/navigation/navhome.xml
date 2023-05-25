@@ -38,9 +38,6 @@
         <argument
             android:name="numberQuestion"
             app:argType="integer" />
-        <action
-            android:id="@+id/action_createQuestionFragment_to_takeCodeFragment"
-            app:destination="@id/takeCodeFragment" />
         <argument
             android:name="time_start_quiz"
             app:argType="long" />
@@ -55,6 +52,9 @@
         <argument
             android:name="random_q"
             app:argType="boolean" />
+        <action
+            android:id="@+id/action_createQuestionFragment_to_quizTemplateFragment"
+            app:destination="@id/quizTemplateFragment" />
 
     </fragment>
     <fragment
@@ -104,5 +104,21 @@
         <argument
             android:name="codeQuiz"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/quizTemplateFragment"
+        android:name="com.example.quizproject.homepages.QuizTemplateFragment"
+        android:label="fragment_quiz_template"
+        tools:layout="@layout/fragment_quiz_template" >
+        <action
+            android:id="@+id/action_quizTemplateFragment_to_takeCodeFragment"
+            app:destination="@id/takeCodeFragment" />
+        <argument android:name="code_quiz"
+            app:argType="string" />
+        <argument android:name="map_main"
+            app:argType="com.example.quizproject.model.MapType" />
+        <argument android:name="map_random"
+            app:argType="com.example.quizproject.model.MapType" />
+
     </fragment>
 </navigation>
