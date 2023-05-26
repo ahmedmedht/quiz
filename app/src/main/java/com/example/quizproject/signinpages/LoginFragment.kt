@@ -1,5 +1,7 @@
 package com.example.quizproject.signinpages
 
+import android.annotation.SuppressLint
+import android.content.Context
 import android.os.Bundle
 import android.util.Patterns
 import android.view.LayoutInflater
@@ -31,8 +33,11 @@ class LoginFragment : Fragment() {
         return view
     }
 
+    @SuppressLint("CommitPrefEdits")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val sharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
 
         mAuth = Firebase.auth
 
@@ -48,22 +53,30 @@ class LoginFragment : Fragment() {
             val pass=edt_txt_pass_login.text.toString()
 
 
-            if(email.equals("")){
-                edt_txt_email_create.setError("Email is required!")
-            }else if(pass.equals("")){
-                edt_txt_password_create.setError("Password is required!")
+            if(email == ""){
+                edt_txt_email_create.error = "Email is required!"
+            }else if(pass == ""){
+                edt_txt_password_create.error = "Password is required!"
             }else if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-                edt_txt_email_create.setError("Please provide valid email!")
+                edt_txt_email_create.error = "Please provide valid email!"
             }else if(pass.length < 6){
-                edt_txt_password_create.setError("Min password lengh should be 6 characters!")
+                edt_txt_password_create.error = "Min password lengh should be 6 characters!"
             }
             else {
+                if(check_remember_email.isChecked){
+                    val editShare= sharedPreferences.edit()
+                    editShare.putBoolean("Stay sign",true)
+                    editShare.putString("Email",email)
+                    editShare.putString("Pass",pass)
+                    editShare.apply()
+                }
                 signin(email, pass, navController)
             }
 
 
 
         }
+
 
     }
 

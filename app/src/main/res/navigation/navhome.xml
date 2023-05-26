@@ -17,6 +17,9 @@
         <action
             android:id="@+id/action_homeFragment_to_joinCodeFragment"
             app:destination="@id/joinCodeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_mainActivity"
+            app:destination="@id/mainActivity" />
 
     </fragment>
     <fragment
@@ -121,4 +124,9 @@
             app:argType="com.example.quizproject.model.MapType" />
 
     </fragment>
+    <activity
+        android:id="@+id/mainActivity"
+        android:name="com.example.quizproject.MainActivity"
+        android:label="activity_main"
+        tools:layout="@layout/activity_main" />
 </navigation>

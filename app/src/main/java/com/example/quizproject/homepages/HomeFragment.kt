@@ -1,5 +1,6 @@
 package com.example.quizproject.homepages
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -13,6 +14,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.example.quizproject.R
+import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
@@ -20,7 +22,7 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.fragment_home.*
 
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var ref: DatabaseReference
     private val currentUser = FirebaseAuth.getInstance()
@@ -46,6 +48,11 @@ class HomeFragment : Fragment() {
             navController.navigate(R.id.action_homeFragment_to_joinCodeFragment)
         }
 
+        img_menu_drawer.setOnClickListener {
+            drawer_layout.openDrawer(GravityCompat.START)
+        }
+
+        nav_view.setNavigationItemSelectedListener(this)
 
 
 
@@ -77,6 +84,36 @@ class HomeFragment : Fragment() {
             }
         }
         return name
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.item_nav_about -> {
+                // Handle click for Item 1
+                // Perform necessary actions
+                Toast.makeText(context,"zayed",Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.item_nav_profile -> {
+                // Handle click for Item 2
+                // Perform necessary actions
+                Toast.makeText(context,"zayedProfile",Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.item_nav_logout -> {
+                currentUser.signOut()
+                val sharedPreferences = requireContext().getSharedPreferences("my_preferences", Context.MODE_PRIVATE)
+                val editShare= sharedPreferences.edit()
+                editShare.putBoolean("Stay sign",false)
+                editShare.apply()
+                view?.let { Navigation.findNavController(it).navigate(R.id.action_homeFragment_to_mainActivity) }
+
+                Toast.makeText(context,"Logout done",Toast.LENGTH_SHORT).show()
+                true
+            }
+            // Handle other items as needed
+            else -> false
+        }
     }
 
 

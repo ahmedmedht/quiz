@@ -111,6 +111,21 @@ class JoinFragment : Fragment() {
         btn_next_quiz_join.setOnClickListener {
             if (btn_next_quiz_join.text.toString()=="finish"){
                 Toast.makeText(context, "Quiz Finished", Toast.LENGTH_LONG).show()
+                if(edt_answer_join.isVisible){
+                    getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
+                }else{
+                    if (btnSelected != null) {
+                        val correctAnswer = quizQuestionMcq[questionAllShow[numberquestion].toInt()].numberAnswer
+                        getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),btnSelected.toString()))
+                        if (correctAnswer.toString() == btnSelected.toString()) {
+                            result += 1
+                        }
+                        btnSelected = null
+                    } else {
+                        Toast.makeText(context, "please select answer", Toast.LENGTH_LONG).show()
+                        txt_question_join.error = "please select answer"
+                    }
+                }
                 uploadAnswersUser(result)
 
                 val action = JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(
@@ -118,6 +133,7 @@ class JoinFragment : Fragment() {
                     args.getCodeQuiz
                 )
                 navController.navigate(action)
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
             }else{
                 if(edt_answer_join.isVisible){
                     getAnswerUser.add(ModelAnswer(txt_question_join.text.toString(),edt_answer_join.text.toString()))
