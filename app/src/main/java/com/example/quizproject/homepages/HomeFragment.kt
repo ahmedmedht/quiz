@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : Fragment() {
 
     private lateinit var ref: DatabaseReference
-    private val currentUser = FirebaseAuth.getInstance().currentUser
+    private val currentUser = FirebaseAuth.getInstance()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,19 +46,12 @@ class HomeFragment : Fragment() {
             navController.navigate(R.id.action_homeFragment_to_joinCodeFragment)
         }
 
-        img_menu_drawer.setOnClickListener {
-            drawer_layout.openDrawer(GravityCompat.START)
-        }
-
-
-
-
-
-
 
 
 
     }
+
+
 
     private fun getNameFromFirebase(navController: NavController, currentUser1: FirebaseUser?): MutableLiveData<String> {
         val name = MutableLiveData<String>()

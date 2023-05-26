@@ -104,7 +104,7 @@ class JoinFragment : Fragment() {
                 showFirstQuestionMcq()
             }
         }
-
+        getQuizName(getCodeQuizJoin)
 
 
 
@@ -166,6 +166,15 @@ class JoinFragment : Fragment() {
         }
 
     }
+
+    private fun getQuizName(codeQuizJoin: String) {
+        dref.child("Quizzes").child(codeQuizJoin).get().addOnSuccessListener {
+                if (it.exists()){
+                    val quizName=it.child("QuizName").value.toString()
+                    txt_quiz_title_join.text=quizName
+                }
+            }
+        }
 
     private fun questionRandomSet(templateRandomQuestions: ArrayList<RandomFormat>, allQuestionRandom:ArrayList<ModelMainQuestion>?) {
         templateRandomQuestions .forEach { temp->
