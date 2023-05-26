@@ -20,10 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 
 class ResultQuizFragment : Fragment() {
-    private val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-    private lateinit var database: DatabaseReference 
-    private lateinit var databaseUserCreated: DatabaseReference
-    private lateinit var dataJoinUser: DatabaseReference
+
 
     private val args:ResultQuizFragmentArgs by navArgs()
 
@@ -40,32 +37,14 @@ class ResultQuizFragment : Fragment() {
         val navController = Navigation.findNavController(view)
         val resultQ=args.score
         txt_result_quiz.text="result = $resultQ"
-        databaseUserCreated=FirebaseDatabase.getInstance().reference
-        database=FirebaseDatabase.getInstance().reference
-        dataJoinUser=FirebaseDatabase.getInstance().reference
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val userIdCreatedQuiz = getUserIdCreated(args.codeQuiz)
-            uploadDataScore(resultQ, args.codeQuiz, userIdCreatedQuiz)
-            Toast.makeText(context,"Upload score user successful ", Toast.LENGTH_LONG).show()
-        }
+
+
 
         btn_go_home_from_result.setOnClickListener {
             navController.navigate(R.id.action_resultQuizFragment_to_homeFragment)
         }
     }
 
-    private suspend fun getUserIdCreated(codeQuiz: String): String {
-        val dataSnapshot = databaseUserCreated.child("QuizApp").child("Quizzes").child(codeQuiz)
-            .child("userIdCreatedQuiz").get().await()
 
-        return dataSnapshot.value.toString()
-    }
-
-    private fun uploadDataScore(resultQ: String, codeQuiz: String, userIdCreatedQuiz: String) {
-        database.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(codeQuiz).child("UserFinishQuiz")
-            .child(currentUser).setValue(resultQ)
-
-
-    }
 }

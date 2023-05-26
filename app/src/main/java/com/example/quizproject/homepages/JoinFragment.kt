@@ -12,7 +12,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast
 import androidx.core.content.ContextCompat
-import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
@@ -21,17 +20,22 @@ import com.example.quizproject.R
 import com.example.quizproject.model.ModelAnswer
 import com.example.quizproject.model.ModelMainQuestion
 import com.example.quizproject.model.QuestionModel
-import com.example.quizproject.model.QuestionTextAnswer
 import com.example.quizproject.model.RandomFormat
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.fragment_join.*
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import java.util.concurrent.CountDownLatch
 import com.google.firebase.database.FirebaseDatabase as FirebaseDatabase
 
 class JoinFragment : Fragment() {
     private val currentUser = FirebaseAuth.getInstance().currentUser?.uid.toString()
     private var dataJoinUser: DatabaseReference=FirebaseDatabase.getInstance().getReference("user").child(currentUser)
+    private var dataCreatedQuizUser: DatabaseReference=FirebaseDatabase.getInstance().reference
 
     private lateinit var dref: DatabaseReference
     private val args:JoinFragmentArgs by navArgs()
@@ -63,6 +67,7 @@ class JoinFragment : Fragment() {
 
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
@@ -74,6 +79,8 @@ class JoinFragment : Fragment() {
         options.add(1, txt_answer2)
         options.add(2, txt_answer3)
         options.add(3, txt_answer4)
+
+
 
         getTemplate(getCodeQuizJoin){
             if (it){
@@ -126,11 +133,13 @@ class JoinFragment : Fragment() {
                         txt_question_join.error = "please select answer"
                     }
                 }
-                uploadAnswersUser(result)
+                GlobalScope.launch(Dispatchers.Main) {
+                    val userIdCreatedQuiz = getUserIdCreated(getCodeQuizJoin)
+                    uploadAnswersUser(result,userIdCreatedQuiz)
+                }
 
                 val action = JoinFragmentDirections.actionJoinFragmentToResultQuizFragment(
-                    result.toString(),
-                    args.getCodeQuiz
+                    result.toString()
                 )
                 navController.navigate(action)
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,6 +192,13 @@ class JoinFragment : Fragment() {
 
     }
 
+    private suspend fun getUserIdCreated(codeQuizJoin: String): String {
+        val dataSnapshot = dataCreatedQuizUser.child("QuizApp").child("Quizzes").child(codeQuizJoin)
+            .child("userIdCreatedQuiz").get().await()
+
+        return dataSnapshot.value.toString()
+    }
+
     private fun getQuizName(codeQuizJoin: String) {
         dref.child("Quizzes").child(codeQuizJoin).get().addOnSuccessListener {
                 if (it.exists()){
@@ -209,9 +225,14 @@ class JoinFragment : Fragment() {
         }
     }
 
-    private fun uploadAnswersUser(result: Int) {
+    private fun uploadAnswersUser(result: Int, userIdCreatedQuiz: String) {
         dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("answers user").setValue(getAnswerUser)
         dataJoinUser.child("QuizJoin").child(args.getCodeQuiz).child("score").setValue(result)
+        dataCreatedQuizUser.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(args.getCodeQuiz).child("UserFinishQuiz")
+            .child(currentUser).child("score").setValue(result)
+        dataCreatedQuizUser.child("user").child(userIdCreatedQuiz).child("QuizCreated").child(args.getCodeQuiz).child("UserFinishQuiz")
+            .child(currentUser).child("Answers user").setValue(getAnswerUser)
+
 
     }
 
