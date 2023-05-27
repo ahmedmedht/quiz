@@ -14,7 +14,6 @@ import com.example.quizproject.model.QuestionModel
 import com.example.quizproject.R
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
-import kotlinx.android.synthetic.main.fragment_code_message.*
 import kotlinx.android.synthetic.main.fragment_join_code.*
 import kotlinx.coroutines.*
 import java.util.*

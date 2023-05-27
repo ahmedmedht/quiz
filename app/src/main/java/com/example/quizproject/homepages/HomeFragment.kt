@@ -111,8 +111,7 @@ class HomeFragment : Fragment(), NavigationView.OnNavigationItemSelectedListener
                 true
             }
             R.id.item_nav_my_quizzes_created -> {
-                // Handle click for Item 2
-                // Perform necessary actions
+                navigate?.navigate(R.id.action_homeFragment_to_createdQuizzesFragment)
                 true
             }
             R.id.item_nav_logout -> {

@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_createdQuizzesFragment"
+            app:destination="@id/createdQuizzesFragment" />
 
     </fragment>
     <fragment
@@ -144,4 +147,9 @@
         android:name="com.example.quizproject.navigationdrawer.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/createdQuizzesFragment"
+        android:name="com.example.quizproject.navigationdrawer.CreatedQuizzesFragment"
+        android:label="fragment_created_quizzes"
+        tools:layout="@layout/fragment_created_quizzes" />
 </navigation>

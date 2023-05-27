@@ -34,34 +34,10 @@
             app:destination="@id/loginFragment" />
     </fragment>
     <fragment
-        android:id="@+id/changePasswordFragment"
-        android:name="com.example.quizproject.signinpages.ChangePasswordFragment"
-        android:label="fragment_change_password"
-        tools:layout="@layout/fragment_change_password" >
-        <action
-            android:id="@+id/action_changePasswordFragment_to_homeActivity"
-            app:destination="@id/homeActivity" />
-    </fragment>
-    <fragment
         android:id="@+id/forgetPassFragment"
         android:name="com.example.quizproject.signinpages.ForgetPassFragment"
         android:label="fragment_forget_pass"
-        tools:layout="@layout/fragment_forget_pass" >
-        <action
-            android:id="@+id/action_forgetPassFragment_to_codeMessageFragment"
-            app:destination="@id/codeMessageFragment"
-            app:popUpTo="@id/forgetPassFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/codeMessageFragment"
-        android:name="com.example.quizproject.signinpages.CodeMessageFragment"
-        android:label="fragment_code_message"
-        tools:layout="@layout/fragment_code_message" >
-        <action
-            android:id="@+id/action_codeMessageFragment_to_changePasswordFragment"
-            app:destination="@id/changePasswordFragment"
-            app:popUpTo="@id/forgetPassFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_forget_pass" />
     <activity
         android:id="@+id/homeActivity"
         android:name="com.example.quizproject.HomeActivity"

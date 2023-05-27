@@ -59,6 +59,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
                 arrayTypeQuestion.add("11")
             }else{
                 totalQ-=randomQuestionF["11"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("11")
             }
@@ -71,6 +72,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
                 arrayTypeQuestion.add("12")
             }else{
                 totalQ-=randomQuestionF["12"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("12")
            }
@@ -84,6 +86,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["13"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("13")
 
@@ -98,6 +101,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["21"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("21")
 
@@ -113,6 +117,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["22"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("22")
 
@@ -123,11 +128,13 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
             if (isChecked){
                 layout_q_random_selected.isVisible=true
                 totalQ += randomQuestionF["23"]!!
+
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.add("23")
 
             }else{
                 totalQ-=randomQuestionF["23"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("23")
 
@@ -143,6 +150,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["31"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("31")
 
@@ -158,6 +166,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["32"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("32")
 
@@ -173,6 +182,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }else{
                 totalQ-=randomQuestionF["33"]!!
+                if (totalQ<0) totalQ=0
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("33")
 
