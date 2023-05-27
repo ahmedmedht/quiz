@@ -8,6 +8,19 @@
     tools:context=".navigationdrawer.CreatedQuizzesFragment">
 
     <!-- TODO: Update blank fragment layout -->
+    <ImageButton
+        android:id="@+id/img_back_created"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:padding="4dp"
+        android:src="@drawable/baseline_keyboard_backspace_24"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
     <TextView
         android:id="@+id/txt_created_quizzes_title"
         android:layout_width="wrap_content"
@@ -18,7 +31,8 @@
         android:textColor="@color/textcolordefult"
         android:textSize="34sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/img_back_created"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_created_quiz"

@@ -1,5 +1,6 @@
 package com.example.quizproject.navigationdrawer
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.ProxyFileDescriptorCallback
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.quizproject.R
 import com.example.quizproject.model.AdapterQreatedQuiz
@@ -16,6 +18,7 @@ import com.example.quizproject.model.ModelCreatedQuiz
 import com.example.quizproject.model.RecyclerViewFormatRandomAdapter
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.fragment_created_quizzes.img_back_created
 import kotlinx.android.synthetic.main.fragment_created_quizzes.rv_created_quiz
 
 
@@ -31,9 +34,9 @@ class CreatedQuizzesFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_created_quizzes, container, false)
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         getDataFromFirebase(){
             if (it){
                 Log.d("arrayCodeQuizzes",createdQuizInfo.toString())
@@ -41,6 +44,10 @@ class CreatedQuizzesFragment : Fragment() {
                 rv_created_quiz.adapter=adapter
                 rv_created_quiz.layoutManager= LinearLayoutManager(requireContext())
             }
+        }
+        img_back_created.setOnClickListener {
+            val navController= Navigation.findNavController(view)
+            navController.navigateUp()
         }
 
 
@@ -59,9 +66,10 @@ class CreatedQuizzesFragment : Fragment() {
                             Log.d("codeQuiz",co.key)
                             arrayCodeQuizzes.add(co.key)
 
-                            addDataToArrayList(arrayCodeQuizzes){itt->
-                                if (itt) callback(true)
-                            }
+
+                        }
+                        addDataToArrayList(arrayCodeQuizzes){itt->
+                            if (itt) callback(true)
                         }
                     }
                 }
@@ -78,24 +86,26 @@ class CreatedQuizzesFragment : Fragment() {
 
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun addDataToArrayList(
         arrayCodeQuizzes: ArrayList<String>,
         callback: (Boolean) -> Unit
     ) {
-        for (code in arrayCodeQuizzes)
-        dataRef.child("QuizApp").child("Quizzes").child(code).get().addOnSuccessListener {
-            if (it.exists()){
-                val nameQuiz=it.child("QuizName").value.toString()
-                val quizStTime=it.child("StartTimeQuiz").value.toString()
-                createdQuizInfo.add(ModelCreatedQuiz(code,nameQuiz,quizStTime))
-                callback(true)
-            }else{
+        for (code in arrayCodeQuizzes) {
+            dataRef.child("QuizApp").child("Quizzes").child(code).get().addOnSuccessListener {
+                if (it.exists()) {
+                    val nameQuiz = it.child("QuizName").value.toString()
+                    val quizStTime = it.child("StartTimeQuiz").value.toString()
+                    createdQuizInfo.add(ModelCreatedQuiz(code, nameQuiz, quizStTime))
+                    callback(true)
+                } else {
+                    callback(false)
+                    Toast.makeText(context, "Please try again!", Toast.LENGTH_SHORT).show()
+                }
+            }.addOnFailureListener {
                 callback(false)
-                Toast.makeText(context,"Please try again!",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Failure, Please try again!", Toast.LENGTH_SHORT).show()
             }
-        }.addOnFailureListener {
-            callback(false)
-            Toast.makeText(context,"Failure, Please try again!",Toast.LENGTH_SHORT).show()
         }
 
     }

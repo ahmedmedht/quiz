@@ -27,10 +27,12 @@
             app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_profileFragment"
-            app:destination="@id/profileFragment" />
+            app:destination="@id/profileFragment"
+            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_createdQuizzesFragment"
-            app:destination="@id/createdQuizzesFragment" />
+            app:destination="@id/createdQuizzesFragment"
+            app:popUpTo="@id/homeFragment" />
 
     </fragment>
     <fragment

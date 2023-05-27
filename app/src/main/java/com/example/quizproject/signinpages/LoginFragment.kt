@@ -3,6 +3,8 @@ package com.example.quizproject.signinpages
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -32,7 +34,7 @@ class LoginFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
-    @SuppressLint("CommitPrefEdits")
+    @SuppressLint("CommitPrefEdits", "UseCompatLoadingForDrawables")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -74,6 +76,19 @@ class LoginFragment : Fragment() {
 
 
 
+        }
+
+        icon_show_password.setOnClickListener {
+            val currentIcon=icon_show_password.drawable.constantState
+            val hideIcon=resources.getDrawable(R.drawable.hide).constantState
+            val showIcon=resources.getDrawable(R.drawable.show).constantState
+            if (currentIcon == hideIcon){
+                icon_show_password.setImageResource(R.drawable.show)
+                edt_txt_pass_login.transformationMethod= HideReturnsTransformationMethod.getInstance()
+            }else{
+                icon_show_password.setImageResource(R.drawable.hide)
+                edt_txt_pass_login.transformationMethod= PasswordTransformationMethod.getInstance()
+            }
         }
 
 

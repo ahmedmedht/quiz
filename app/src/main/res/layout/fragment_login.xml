@@ -57,24 +57,43 @@
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_txt_email_login" />
-
-    <EditText
-        android:id="@+id/edt_txt_pass_login"
+    <LinearLayout
+        android:id="@+id/layout_show_pass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/background_edt_txt"
-        android:ems="10"
-        android:hint="Enter Your Password"
-        android:inputType="textPassword"
-        android:padding="10dp"
-        android:textSize="20sp"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <EditText
+            android:id="@+id/edt_txt_pass_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/background_edt_txt"
+            android:ems="10"
+            android:hint="Enter Your Password"
+            android:inputType="textPassword"
+            android:padding="10dp"
+            android:textSize="20sp"
+            />
+
+        <ImageButton
+            android:id="@+id/icon_show_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            app:srcCompat="@drawable/hide"
+            android:background="@null"/>
+
+    </LinearLayout>
+
+
 
 
     <CheckBox
@@ -88,7 +107,7 @@
         android:textColor="@color/smalltext"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_txt_pass_login" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_show_pass" />
 
     <TextView
         android:id="@+id/txt_forget_password"
@@ -101,7 +120,7 @@
         android:textColor="#E86969"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_txt_pass_login" />
+        app:layout_constraintTop_toBottomOf="@+id/layout_show_pass" />
 
     <Button
         android:id="@+id/btn_login_login"

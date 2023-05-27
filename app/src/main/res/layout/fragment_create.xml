@@ -54,6 +54,7 @@
         android:hint="Enter Your Password"
         android:background="@drawable/background_edt_txt"/>
 
+
     <EditText
         android:id="@+id/edt_txt_password_check_create"
         android:layout_width="match_parent"
@@ -74,7 +75,6 @@
         android:textColor="@color/textcolordefult"
         android:background="@drawable/background_btn"
         android:layout_marginBottom="32dp"
-
         />
 
     <LinearLayout
