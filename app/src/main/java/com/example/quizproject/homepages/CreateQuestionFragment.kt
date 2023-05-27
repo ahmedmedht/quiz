@@ -1,5 +1,4 @@
 package com.example.quizproject.homepages
-
 import android.app.Activity.RESULT_OK
 import android.content.ContentResolver
 import android.content.Intent
@@ -34,9 +33,6 @@ import com.example.quizproject.model.MapType
 import com.example.quizproject.model.ModelMainQuestion
 import java.io.ByteArrayOutputStream
 import java.util.*
-
-
-
 class CreateQuestionFragment : Fragment() {
 
     private lateinit var database: DatabaseReference
@@ -141,6 +137,7 @@ class CreateQuestionFragment : Fragment() {
                     }
                     if (totalNumberText == currentQuestion) {
                         layout_add_question_question.isVisible = true
+
                     }
                     edt_question_quiz.setText("")
                 } else {

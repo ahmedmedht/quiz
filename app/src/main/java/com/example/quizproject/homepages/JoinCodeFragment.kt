@@ -58,6 +58,9 @@ class JoinCodeFragment : Fragment() {
             }
 
         }
+        img_back_join_code.setOnClickListener {
+            navController.navigateUp()
+        }
     }
 
     private fun getDataFromFirebase(

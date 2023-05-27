@@ -16,10 +16,18 @@
             app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_joinCodeFragment"
-            app:destination="@id/joinCodeFragment" />
+            app:destination="@id/joinCodeFragment"
+            app:popUpTo="@id/homeFragment" />
         <action
             android:id="@+id/action_homeFragment_to_mainActivity"
             app:destination="@id/mainActivity" />
+        <action
+            android:id="@+id/action_homeFragment_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment"
+            app:popUpTo="@id/homeFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
 
     </fragment>
     <fragment
@@ -126,4 +134,14 @@
         android:name="com.example.quizproject.MainActivity"
         android:label="activity_main"
         tools:layout="@layout/activity_main" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.example.quizproject.navigationdrawer.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.quizproject.navigationdrawer.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>

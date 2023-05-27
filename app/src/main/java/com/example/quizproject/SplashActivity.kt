@@ -1,5 +1,4 @@
 package com.example.quizproject
-
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +8,6 @@ import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
 class SplashActivity : AppCompatActivity() {
     private lateinit var mAuth: FirebaseAuth
 
@@ -33,8 +31,6 @@ class SplashActivity : AppCompatActivity() {
                         signin(it, getPass)
                     }
                 }
-
-
             }
             // Finish this activity
             finish()

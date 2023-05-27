@@ -22,8 +22,10 @@
 
     <Button
         android:id="@+id/btn_next_from_template"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/background_btn_done"
         android:text="Next"

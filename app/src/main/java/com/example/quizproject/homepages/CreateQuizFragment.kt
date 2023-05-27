@@ -1,5 +1,4 @@
 package com.example.quizproject.homepages
-
 import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
@@ -17,8 +16,6 @@ import com.example.quizproject.R
 import kotlinx.android.synthetic.main.fragment_create_quiz.*
 import java.text.SimpleDateFormat
 import java.util.*
-
-
 class CreateQuizFragment : Fragment(){
     private var stTimeQuiz:Long?=null
     private var enTimeQuiz:Long?=null
@@ -32,7 +29,6 @@ class CreateQuizFragment : Fragment(){
         val view = inflater.inflate(R.layout.fragment_create_quiz, container, false)
         return view
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navController = Navigation.findNavController(view)
@@ -59,21 +55,17 @@ class CreateQuizFragment : Fragment(){
             navController.navigateUp()
 
         }
-
         btn_next_create_quiz.setOnClickListener {
             var numberTxtQuestion=edt_number_txt_q.text.toString()
             if (numberTxtQuestion==""){
                 numberTxtQuestion="0"
             }
             val titleQuiz=edt_name_quiz_create.text.toString()
-
             val numberq=edt_total_number_q_create_quiz.text.toString()
             val date=getdateandtime()
             if (date!=null){
             if (date<1){
-                txt_time_end_quiz_create.error = "End date and must be greater then start date and time"
-
-
+                txt_time_end_quiz_create.error = "End date  must be greater than start date and time"
             }else {
                 if (edt_total_number_q_create_quiz.text.toString()!=""&& edt_name_quiz_create.text.toString()!="") {
                     val action =
@@ -95,7 +87,6 @@ class CreateQuizFragment : Fragment(){
                 }
             }
             }else Toast.makeText(context,"Please enter all required",Toast.LENGTH_LONG).show()
-
         }
 
     }
@@ -132,8 +123,6 @@ class CreateQuizFragment : Fragment(){
         }
 
     }
-
-
     private fun updateLabel(calendar: Calendar,datap:TextView) {
         val format="dd-MM-yyyy"
         val sdf=SimpleDateFormat(format, Locale.ITALY)

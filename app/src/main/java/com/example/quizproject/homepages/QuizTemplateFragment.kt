@@ -40,26 +40,16 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
     @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val navController = Navigation.findNavController(view)
-
-
-
-
         mapFormatRandom= arrayListOf()
-
-
         val code=args.codeQuiz
         var totalQ=0
         val mainQf:Map<String,Int> = args.mapMain.map
         val randomQuestionF:Map<String,Int> = args.mapRandom.map
         val arrayTypeQuestion:ArrayList<String> = ArrayList()
-
         if (mainQf.isNotEmpty()) setQuetionMainFormat(mainQf)
 
         if (randomQuestionF.isNotEmpty()) setQuetionRandomFormat(randomQuestionF)
-
-
         ///////////////////////////////////////////////////
         checkBox_11.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
@@ -73,22 +63,18 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
                 arrayTypeQuestion.remove("11")
             }
         }
-
         checkBox_12.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 layout_q_random_selected.isVisible=true
                 totalQ += randomQuestionF["12"]!!
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.add("12")
-
             }else{
                 totalQ-=randomQuestionF["12"]!!
                 txt_enter_type_select.text="Total($totalQ)"
                 arrayTypeQuestion.remove("12")
-
-            }
+           }
         }
-
         checkBox_13.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 layout_q_random_selected.isVisible=true
@@ -103,9 +89,6 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
             }
         }
-
-
-
         checkBox_21.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked){
                 layout_q_random_selected.isVisible=true
@@ -197,8 +180,6 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
         }
 
         //////////////////////////////////////////////
-
-
         img_btn_add_item_to_rv.setOnClickListener {
             val getTotal=edt_enter_num_q_from_type.text.toString()
             if (getTotal==""||getTotal.toInt()>totalQ||getTotal.toInt()<1){
@@ -221,8 +202,6 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
                 edt_enter_num_q_from_type.setText("")
             }
         }
-
-
         btn_next_from_template.setOnClickListener {
             var checkRandom=true
             if (randomQuestionF.isNotEmpty()&&mapFormatRandom.isEmpty()){
@@ -245,14 +224,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
             val action=QuizTemplateFragmentDirections.actionQuizTemplateFragmentToTakeCodeFragment(code)
             navController.navigate(action)
         }
-
-
-
-
     }
-
-
-
     private fun removeCheckBox(arrayTypeQuestion: ArrayList<String>) {
         for (i in arrayTypeQuestion){
             when (i) {
@@ -288,7 +260,6 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
         }
 
     }
-
     private fun uploadTemplateMain(code: String,mainQf: Map<String, Int>){
 
         database.child("Quizzes").child(code).child("TypeQuestions").child("TemplateQuiz").child("MainFormat").setValue(mainQf)
@@ -296,10 +267,7 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
 
                 Toast.makeText(context,"Please try again!!",Toast.LENGTH_SHORT).show()
             }
-
-
-    }
-
+   }
     private fun uploadTemplateRandom(code: String, mapFormatRandom: java.util.ArrayList<RandomFormat>){
 
         database.child("Quizzes").child(code).child("TypeQuestions").child("TemplateQuiz").child("RandomFormat").setValue(mapFormatRandom)
@@ -481,6 +449,4 @@ class QuizTemplateFragment : Fragment() ,RecyclerViewFormatRandomAdapter.ItemCli
             }
         }
     }
-
-
 }

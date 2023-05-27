@@ -29,8 +29,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        var view= inflater.inflate(R.layout.fragment_login, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     @SuppressLint("CommitPrefEdits")
@@ -99,12 +98,12 @@ class LoginFragment : Fragment() {
                         }
                     }
                 } else {
-                    Toast.makeText(context,"Faild to login! please check your credentials ", Toast.LENGTH_LONG).show()
+                    Toast.makeText(context,"Failed to login! please check your credentials ", Toast.LENGTH_LONG).show()
 
                 }
             }
         }
-    }
+2    }
 
 
 }
