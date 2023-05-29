@@ -17,7 +17,13 @@ class AdapterQreatedQuiz constructor(private val itemList: ArrayList<ModelCreate
     RecyclerView.Adapter<AdapterQreatedQuiz.MyViewHolder>(){
 
 
-
+    interface ItemClickListener{
+        fun getDataQuiz(position: Int)
+    }
+    private var clickAddData:ItemClickListener? =null
+    fun setItemClickListener(listener: ItemClickListener) {
+        clickAddData = listener
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder
@@ -59,6 +65,7 @@ class AdapterQreatedQuiz constructor(private val itemList: ArrayList<ModelCreate
                 val position = adapterPosition
                 if (position != RecyclerView.NO_POSITION) {
                     Log.d("Position =",position.toString())
+                    clickAddData?.getDataQuiz(position)
                 }
             }
         }
